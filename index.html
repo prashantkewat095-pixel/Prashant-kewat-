@@ -1,1 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prashant Ki Website</title>
 
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: lightblue;
+      color: #222;
+    }
+
+    .card {
+      max-width: 500px;
+      margin: 30px auto;
+      background: white;
+      padding: 30px 20px;
+      border-radius: 20px;
+      box-shadow: 0 5px 15px #777;
+    }
+
+    img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 5px solid lightblue;
+      object-fit: cover;
+    }
+
+    h1 {
+      font-size: 38px;
+    }
+
+    h2 {
+      margin-top: 30px;
+    }
+
+    p {
+      font-size: 20px;
+    }
+
+    button {
+      font-size: 18px;
+      padding: 14px 25px;
+      margin: 8px;
+      border: none;
+      border-radius: 12px;
+      background: lightblue;
+      cursor: pointer;
+    }
+
+    button:active {
+      transform: scale(0.95);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+
+    <h1>👋 Prashant</h1>
+
+    <h2>💻 Future Developer 🚀</h2>
+
+    <p>
+      Hello! Mera naam Prashant hai.
+      Main coding aur website development seekh raha hoon.
+    </p>
+
+    <button onclick="showMessage()">Click Me</button>
+
+    <p id="message"></p>
+
+  </div>
+
+  <script>
+    function showMessage() {
+      document.getElementById("message").innerText =
+        "🎉 Welcome to Prashant Ki Website!";
+    }
+  </script>
+
+</body>
+</html>
