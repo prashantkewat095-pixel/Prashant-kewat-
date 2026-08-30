@@ -1,516 +1,3 @@
-TYPE html>
-<html lang="hi">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Prashant Hub</title>
-
-<style>
-*{box-sizing:border-box}
-body{
- margin:0;background:#07111f;color:#fff;
- font-family:Arial,sans-serif;
-}
-.app{
- max-width:600px;min-height:100vh;margin:auto;
- background:linear-gradient(180deg,#0b1d33,#07111f);
- padding-bottom:30px;
-}
-header{text-align:center;padding:25px 15px}
-h1{margin:5px;font-size:32px}
-p{line-height:1.5}
-.card{
- margin:14px;padding:18px;border-radius:20px;
- background:#10243b;border:1px solid #284866;
- box-shadow:0 8px 25px #0004;
-}
-.stats{
- display:grid;grid-template-columns:repeat(3,1fr);gap:8px
-}
-.stat{
- text-align:center;background:#17314d;padding:12px 4px;
- border-radius:14px
-}
-.stat b{display:block;font-size:23px;color:#36ddff}
-button{
- border:0;border-radius:12px;padding:13px 17px;
- margin:5px;font-size:16px;font-weight:bold;
- cursor:pointer;background:#25c7ed;color:#00131b
-}
-button:active{transform:scale(.95)}
-input{
- width:100%;padding:13px;border-radius:11px;
- border:1px solid #42627e;background:#07111f;
- color:#fff;font-size:16px
-}
-.tap{
- display:block;margin:20px auto;width:180px;height:180px;
- border-radius:50%;font-size:28px;color:#fff;
- background:linear-gradient(135deg,#ff397b,#ff9d00);
-}
-.question{font-size:20px;font-weight:bold;margin:15px 0}
-.option{
- display:block;width:100%;margin:8px 0;text-align:left;
- background:#18334f;color:#fff;border:1px solid #42627e
-}
-.option.correct{background:#087f50;border-color:#41f2a0}
-.option.wrong{background:#a52a43;border-color:#ff7187}
-.option:disabled{opacity:1}
-.good{color:#45f5a1;font-weight:bold}
-.bad{color:#ff7187;font-weight:bold}
-.progress{
- height:13px;background:#203b56;border-radius:20px;overflow:hidden
-}
-.bar{
- height:100%;width:0;background:#29d9ff;transition:.3s
-}
-.row{
- display:flex;justify-content:space-between;
- padding:12px;border-bottom:1px solid #284866
-}
-.whatsapp{
- display:block;text-decoration:none;text-align:center;
- background:#20c76a;color:white;padding:14px;
- border-radius:12px;font-weight:bold
-}
-.small{color:#9eb2c5;font-size:13px}
-.center{text-align:center}
-</style>
-</head>
-
-<body>
-<div class="app">
-
-<header>
-<h1>🚀 Prashant Hub</h1>
-<p>🎮 Games • 🧠 Quiz • ⭐ Points</p>
-</header>
-
-<div class="card">
-<h2>👤 Player</h2>
-<input id="name" placeholder="अपना नाम लिखें">
-<button onclick="saveName()">Save Name</button>
-<p id="nameMsg"></p>
-</div>
-
-<div class="card">
-<div class="stats">
-<div class="stat"><b id="points">0</b>⭐ Points</div>
-<div class="stat"><b id="taps">0</b>👆 Taps</div>
-<div class="stat"><b id="correct">0</b>🧠 Correct</div>
-</div>
-</div>
-
-<div class="card center" id="game">
-<h2>🎮 Tap Game</h2>
-<p>हर tap पर +1 point</p>
-<button class="tap" onclick="tap()">TAP 👆</button>
-<p>Total Taps: <b id="tapTotal">0</b></p>
-</div>
-
-<div class="card center">
-<h2>🔥 Daily Challenge</h2>
-<p>आज 20 taps पूरे करो</p>
-<p><b id="daily">0</b> / 20</p>
-<div class="progress"><div class="bar" id="bar"></div></div>
-<p id="challengeMsg"></p>
-</div>
-
-<div class="card center">
-<h2>🎁 Daily Reward</h2>
-<p>हर दिन 50 virtual points</p>
-<button onclick="reward()">Claim +50</button>
-<p id="rewardMsg"></p>
-</div>
-
-<div class="card" id="quiz">
-<h2>🧠 Quiz</h2>
-<p class="small">100 questions • 4 options</p>
-
-<p id="qNo"></p>
-<div class="question" id="question"></div>
-<div id="options"></div>
-<p id="quizMsg"></p>
-
-<button id="next" onclick="next()" style="display:none">
-Next Question ➡️
-</button>
-</div>
-
-<div class="card">
-<h2>🏆 Leaderboard</h2>
-<div class="row"><span>🥇 Rahul</span><b>2500</b></div>
-<div class="row"><span>🥈 Aman</span><b>2100</b></div>
-<div class="row"><span>🥉 Rohit</span><b>1800</b></div>
-<div class="row"><span>⭐ <span id="myName">You</span></span><b id="myPoints">0</b></div>
-<p class="small">Demo leaderboard — local score</p>
-</div>
-
-<div class="card">
-<h2>💬 Contact</h2>
-<p>कोई सवाल या content हो तो WhatsApp पर message करें।</p>
-<a class="whatsapp"
-href="https://wa.me/9201429378.?text=Hello%20Prashant"
-target="_blank">
-💬 WhatsApp पर Message करें
-</a>
-
-<p class="small">
-ऊपर वाले link में 9201429378 mera number 
-</p>
-</div>
-
-<div class="card center">
-<button onclick="resetData()">🔄 Reset Score</button>
-</div>
-
-</div>
-
-<script>
-
-/* =========================
-   DATA
-========================= */
-
-let points=Number(localStorage.getItem("ph_points"))||0;
-let taps=Number(localStorage.getItem("ph_taps"))||0;
-let correct=Number(localStorage.getItem("ph_correct"))||0;
-let player=localStorage.getItem("ph_name")||"You";
-
-const quiz=[
-
-["भारत की राजधानी क्या है?",["Mumbai","New Delhi","Jaipur","Bhopal"],1],
-["भारत का राष्ट्रीय पशु कौन है?",["Lion","Tiger","Elephant","Deer"],1],
-["भारत का राष्ट्रीय पक्षी कौन है?",["Parrot","Peacock","Eagle","Swan"],1],
-["भारत का राष्ट्रीय फूल कौन सा है?",["Rose","Lotus","Sunflower","Lily"],1],
-["भारत का राष्ट्रीय फल कौन सा है?",["Apple","Mango","Banana","Orange"],1],
-["भारत का राष्ट्रीय वृक्ष कौन सा है?",["Neem","Banyan","Mango","Pine"],1],
-["भारत का राष्ट्रीय खेल किसे माना जाता है?",["Cricket","Hockey","Football","Tennis"],1],
-["भारत में कितने राज्य हैं?",["26","27","28","29"],2],
-["एक सप्ताह में कितने दिन होते हैं?",["5","6","7","8"],2],
-["एक साल में कितने महीने होते हैं?",["10","11","12","13"],2],
-
-["2 + 8 कितना है?",["8","9","10","11"],2],
-["10 - 4 कितना है?",["5","6","7","8"],1],
-["5 × 5 कितना है?",["20","25","30","35"],1],
-["20 ÷ 4 कितना है?",["4","5","6","7"],1],
-["12 + 13 कितना है?",["23","24","25","26"],2],
-["100 में कितने शून्य हैं?",["1","2","2","4"],2],
-["50 का आधा कितना है?",["20","25","30","35"],1],
-["10 का दोगुना कितना है?",["15","20","25","30"],1],
-["9 × 3 कितना है?",["18","27","36","21"],1],
-["81 का square root क्या है?",["7","8","9","10"],2],
-
-["पानी का chemical formula क्या है?",["CO2","O2","H2O","NaCl"],2],
-["सूर्य किस दिशा से निकलता है?",["North","South","East","West"],2],
-["पृथ्वी का उपग्रह कौन है?",["Mars","Moon","Sun","Venus"],1],
-["लाल ग्रह किसे कहते हैं?",["Earth","Mars","Jupiter","Saturn"],1],
-["सौरमंडल का सबसे बड़ा ग्रह कौन है?",["Earth","Mars","Jupiter","Venus"],2],
-["हम जिस ग्रह पर रहते हैं?",["Mars","Earth","Venus","Mercury"],1],
-["पौधे photosynthesis में क्या बनाते हैं?",["Oxygen","Gold","Iron","Salt"],0],
-["मनुष्य सांस में कौन सी gas लेते हैं?",["Oxygen","Carbon dioxide","Hydrogen","Helium"],0],
-["पानी कितने °C पर जमता है?",["0","10","50","100"],0],
-["पानी कितने °C पर उबलता है?",["50","80","100","120"],2],
-
-["Computer का brain किसे कहते हैं?",["Mouse","CPU","Keyboard","Monitor"],1],
-["Keyboard का उपयोग किसके लिए होता है?",["Typing","Printing","Charging","Calling"],0],
-["Mouse किस प्रकार का device है?",["Input","Output","Storage","Power"],0],
-["Monitor किस प्रकार का device है?",["Input","Output","Storage","Network"],1],
-["HTML का उपयोग किसके लिए होता है?",["Website structure","Cooking","Calling","Charging"],0],
-["CSS का काम क्या है?",["Website styling","Calling","Camera","Battery"],0],
-["JavaScript क्या जोड़ता है?",["Interactivity","SIM","Battery","Water"],0],
-["WWW का पूरा नाम क्या है?",["World Wide Web","World Web Wide","Web World Window","Wide Web World"],0],
-["URL का उपयोग किसके लिए होता है?",["Web address","Cooking","Music","Battery"],0],
-["HTTP किससे संबंधित है?",["Web","Food","Camera","Games"],0],
-
-["भारत की मुद्रा क्या है?",["Dollar","Rupee","Pound","Euro"],1],
-["भारत का currency symbol क्या है?",["$","€","₹","£"],2],
-["भारत का स्वतंत्रता दिवस कब है?",["15 August","26 January","2 October","14 November"],0],
-["गणतंत्र दिवस कब मनाया जाता है?",["15 August","26 January","5 September","2 October"],1],
-["गांधी जयंती कब होती है?",["2 October","15 August","26 January","14 November"],0],
-["बाल दिवस कब मनाया जाता है?",["14 November","5 September","2 October","15 August"],0],
-["शिक्षक दिवस कब मनाया जाता है?",["5 September","14 November","2 October","26 January"],0],
-["भारत की राजधानी क्या है?",["Delhi","New Delhi","Mumbai","Kolkata"],1],
-["भारत का सबसे बड़ा राज्य क्षेत्रफल में कौन सा है?",["Rajasthan","Goa","Kerala","Punjab"],0],
-["भारत का सबसे छोटा राज्य क्षेत्रफल में कौन सा है?",["Goa","Sikkim","Tripura","Manipur"],0],
-
-["सप्ताह का पहला दिन सामान्यतः कौन सा माना जाता है?",["Sunday","Monday","Friday","Saturday"],0],
-["एक दिन में कितने घंटे होते हैं?",["12","18","24","36"],2],
-["एक घंटे में कितने मिनट होते हैं?",["30","45","60","90"],2],
-["एक मिनट में कितने seconds होते हैं?",["30","60","90","100"],1],
-["24 घंटे में कितने मिनट होते हैं?",["1240","1440","1640","1000"],1],
-["1 किलोमीटर में कितने मीटर होते हैं?",["100","500","1000","1500"],2],
-["1 मीटर में कितने सेंटीमीटर होते हैं?",["10","50","100","1000"],2],
-["1 किलो में कितने ग्राम होते हैं?",["100","500","1000","2000"],2],
-["आधा किलो कितने ग्राम है?",["250","500","750","1000"],1],
-["1 लीटर में कितने millilitre होते हैं?",["100","500","1000","1500"],2],
-
-["Lion को हिंदी में क्या कहते हैं?",["बाघ","शेर","हाथी","भालू"],1],
-["Elephant को हिंदी में क्या कहते हैं?",["घोड़ा","हाथी","गाय","शेर"],1],
-["Dog को हिंदी में क्या कहते हैं?",["कुत्ता","बिल्ली","घोड़ा","बकरी"],0],
-["Cat को हिंदी में क्या कहते हैं?",["कुत्ता","बिल्ली","चूहा","बकरी"],1],
-["Cow को हिंदी में क्या कहते हैं?",["गाय","भैंस","बकरी","घोड़ा"],0],
-["Horse को हिंदी में क्या कहते हैं?",["गाय","घोड़ा","हाथी","ऊंट"],1],
-["Bird को हिंदी में क्या कहते हैं?",["मछली","पक्षी","जानवर","पेड़"],1],
-["Fish कहाँ रहती है?",["पानी","आसमान","रेगिस्तान","पेड़"],0],
-["पेड़ का हरा भाग क्या कहलाता है?",["पत्ता","जड़","फल","बीज"],0],
-["पौधे का underground भाग क्या है?",["फूल","जड़","पत्ता","फल"],1],
-
-["दीपावली किसका त्योहार है?",["रोशनी","पतंग","पानी","फूल"],0],
-["होली में मुख्यतः क्या खेला जाता है?",["रंग","बर्फ","रेत","पानी की बोतल"],0],
-["क्रिसमस कब मनाया जाता है?",["25 December","1 January","15 August","26 January"],0],
-["नया साल कब शुरू होता है?",["1 January","1 March","15 August","25 December"],0],
-["रक्षा बंधन में क्या बांधा जाता है?",["राखी","फूल","पतंग","झंडा"],0],
-["मकर संक्रांति पर क्या प्रसिद्ध है?",["पतंग","क्रिकेट","तैराकी","फुटबॉल"],0],
-["ईद किस धर्म का प्रमुख त्योहार है?",["Islam","Hinduism","Buddhism","Sikhism"],0],
-["गुरु नानक जयंती किससे संबंधित है?",["Sikhism","Islam","Christianity","Jainism"],0],
-["बुद्ध पूर्णिमा किससे संबंधित है?",["Buddhism","Islam","Sikhism","Christianity"],0],
-["महावीर जयंती किससे संबंधित है?",["Jainism","Islam","Sikhism","Buddhism"],0],
-
-["भारत का राष्ट्रीय ध्वज किस रंगों से बना है?",["तीन","दो","चार","पांच"],0],
-["तिरंगे के बीच में क्या है?",["अशोक चक्र","कमल","सूरज","तारा"],0],
-["अशोक चक्र में कितनी तीलियां हैं?",["12","18","24","32"],2],
-["भारत का राष्ट्रगान कौन सा है?",["जन गण मन","वंदे मातरम्","सारे जहां से अच्छा","ऐ मेरे वतन"],0],
-["भारत का राष्ट्रीय गीत कौन सा है?",["जन गण मन","वंदे मातरम्","भारत माता","जय हिंद"],1],
-["भारतीय संविधान कब लागू हुआ?",["26 January 1950","15 August 1947","2 October 1950","26 November 1949"],0],
-["भारत को आजादी कब मिली?",["1945","1946","1947","1950"],2],
-["भारतीय संविधान दिवस कब है?",["26 November","26 January","15 August","2 October"],0],
-["भारत का सर्वोच्च न्यायालय कहाँ है?",["Mumbai","New Delhi","Kolkata","Chennai"],1],
-["लोकसभा को क्या कहते हैं?",["House of People","Council of States","Upper House","Court"],0],
-
-["Football में कितने players एक team में मैदान पर होते हैं?",["9","10","11","12"],2],
-["Cricket team में कितने players होते हैं?",["9","10","11","12"],2],
-["Olympics में कितने rings हैं?",["3","4","5","6"],2],
-["Tennis में किस चीज का उपयोग होता है?",["Racket","Bat","Stick","Glove"],0],
-["Cricket में ball मारने के लिए क्या होता है?",["Bat","Racket","Stick","Club"],0],
-["Football में goal कौन करता है?",["Player","Umpire","Coach","Referee"],0],
-["Chess में राजा को क्या कहते हैं?",["King","Queen","Knight","Rook"],0],
-["Chess में सबसे शक्तिशाली piece कौन सा है?",["Queen","Pawn","King","Rook"],0],
-["Carrom में किस चीज से गोटी चलाते हैं?",["Striker","Bat","Ball","Racket"],0],
-["Badminton में किसका उपयोग होता है?",["Racket","Bat","Stick","Glove"],0]
-
-];
-
-/* =========================
-   FUNCTIONS
-========================= */
-
-function update(){
-
- document.getElementById("points").textContent=points;
- document.getElementById("taps").textContent=taps;
- document.getElementById("tapTotal").textContent=taps;
- document.getElementById("correct").textContent=correct;
- document.getElementById("myPoints").textContent=points;
- document.getElementById("myName").textContent=player;
-
- localStorage.setItem("ph_points",points);
- localStorage.setItem("ph_taps",taps);
- localStorage.setItem("ph_correct",correct);
-}
-
-function saveName(){
-
- let n=document.getElementById("name").value.trim();
-
- if(!n){
-  document.getElementById("nameMsg").textContent="⚠️ नाम लिखो";
-  return;
- }
-
- player=n;
- localStorage.setItem("ph_name",player);
- document.getElementById("nameMsg").textContent="✅ Name saved!";
- update();
-}
-
-function tap(){
-
- points++;
- taps++;
-
- let today=taps%20;
-
- if(today===0){
-  points+=20;
-  document.getElementById("challengeMsg").textContent=
-  "🎉 Daily Challenge Complete! +20 Bonus";
- }
-
- document.getElementById("daily").textContent=today;
- document.getElementById("bar").style.width=(today/20*100)+"%";
-
- update();
-}
-
-function reward(){
-
- let today=new Date().toDateString();
- let last=localStorage.getItem("ph_reward");
-
- if(last===today){
-  document.getElementById("rewardMsg").textContent=
-  "⏳ आज reward ले चुके हो।";
-  return;
- }
-
- points+=50;
-
- localStorage.setItem("ph_reward",today);
-
- document.getElementById("rewardMsg").textContent=
- "🎉 +50 virtual points मिल गए!";
-
- update();
-}
-
-
-/* =========================
-   QUIZ
-========================= */
-
-let qIndex=0;
-let answered=false;
-
-function loadQuestion(){
-
- answered=false;
-
- let q=quiz[qIndex];
-
- document.getElementById("qNo").textContent=
- "Question "+(qIndex+1)+" / "+quiz.length;
-
- document.getElementById("question").textContent=q[0];
-
- document.getElementById("quizMsg").textContent="";
-
- document.getElementById("next").style.display="none";
-
- let box=document.getElementById("options");
- box.innerHTML="";
-
- q[1].forEach(function(answer,index){
-
-  let btn=document.createElement("button");
-
-  btn.className="option";
-  btn.textContent=answer;
-
-  btn.onclick=function(){
-   checkAnswer(index);
-  };
-
-  box.appendChild(btn);
- });
-}
-
-function checkAnswer(selected){
-
- if(answered)return;
-
- answered=true;
-
- let q=quiz[qIndex];
- let buttons=document.querySelectorAll(".option");
-
- buttons.forEach(function(btn,index){
-
-  btn.disabled=true;
-
-  if(index===q[2]){
-
-   btn.classList.add("correct");
-   btn.textContent="✅ "+q[1][index];
-
-  }else{
-
-   btn.classList.add("wrong");
-   btn.textContent="❌ "+q[1][index];
-
-  }
- });
-
- if(selected===q[2]){
-
-  points+=25;
-  correct++;
-
-  document.getElementById("quizMsg").textContent=
-  "🎉 सही जवाब! +25 Points";
-
-  document.getElementById("quizMsg").className="good";
-
- }else{
-
-  document.getElementById("quizMsg").textContent=
-  "❌ गलत! सही answer ऊपर हरे रंग में है।";
-
-  document.getElementById("quizMsg").className="bad";
- }
-
- document.getElementById("next").style.display="inline-block";
-
- update();
-}
-
-function next(){
-
- qIndex++;
-
- if(qIndex>=quiz.length){
-
-  document.getElementById("question").textContent=
-  "🎉 100 Questions Complete!";
-
-  document.getElementById("options").innerHTML="";
-
-  document.getElementById("qNo").textContent="Quiz Finished";
-
-  document.getElementById("quizMsg").textContent=
-  "आपके सही answers: "+correct;
-
-  document.getElementById("next").style.display="none";
-
-  return;
- }
-
- loadQuestion();
-}
-
-function resetData(){
-
- if(!confirm("Score reset करना है?"))return;
-
- points=0;
- taps=0;
- correct=0;
-
- localStorage.removeItem("ph_points");
- localStorage.removeItem("ph_taps");
- localStorage.removeItem("ph_correct");
- localStorage.removeItem("ph_reward");
-
- update();
-
- document.getElementById("daily").textContent="0";
- document.getElementById("bar").style.width="0%";
-
- alert("✅ Score reset हो गया!");
-}
-
-
-/* START */
-
-document.getElementById("name").value=player;
-loadQuestion();
-update();
-
-</script>
-
-</body>
-</html>
-</ludoking.working.open>
 <!DOCTYPE html>
 <html lang="hi">
 <head>
@@ -784,4 +271,319 @@ const motivation = [
 "सीखने की इच्छा बनाए रखो।",
 "जिज्ञासु बने रहो।",
 "गलत उत्तर से सीखो।",
-"हर सप्ताह अ
+"हर सप्ताह अपनी प्रगति जाँचो।",
+"हर महीने एक अच्छी आदत जोड़ो।",
+"अपने लक्ष्य की वजह याद रखो।",
+"आज को बेहतर बनाओ।",
+"भविष्य के लिए तैयारी करो।",
+"मेहनत के साथ सही दिशा चुनो।",
+"अपने सपनों को योजना में बदलो।",
+"अपना आत्मविश्वास बढ़ाओ।",
+"अपने मन को सकारात्मक दिशा दो।",
+"चुनौती को अवसर समझो।",
+"एक और प्रयास करो।",
+"अपनी यात्रा पर भरोसा रखो।"
+
+];
+
+
+/* =========================
+   1000+ ENTRIES
+   ========================= */
+
+/*
+हर entry में केवल एक ही सीख रहेगी।
+कोई दो अलग बातें एक लाइन में नहीं जोड़ी जाएंगी।
+*/
+
+const lessons = [];
+
+for(let i = 0; i < 1050; i++){
+
+    lessons.push(
+        motivation[i % motivation.length]
+    );
+
+}
+
+
+/* =========================
+   DAILY CHANGE
+========================= */
+
+function getToday(){
+
+    const now = new Date();
+
+    const start =
+        new Date(
+            now.getFullYear(),
+            now.getMonth(),
+            now.getDate()
+        );
+
+    return Math.floor(
+        start.getTime() / 86400000
+    );
+
+}
+
+
+/* आज की सीख */
+
+let index =
+    getToday() % lessons.length;
+
+
+/* =========================
+   SHOW MOTIVATION
+========================= */
+
+function displayLesson(){
+
+    document.getElementById("day").innerText =
+        "📅 आज की सीख • " +
+        (index + 1) +
+        " / " +
+        lessons.length;
+
+    document.getElementById("lesson").innerText =
+        lessons[index];
+
+}
+
+
+/* अगली */
+
+function nextLesson(){
+
+    index++;
+
+    if(index >= lessons.length){
+        index = 0;
+    }
+
+    displayLesson();
+
+}
+
+
+/* पिछली */
+
+function previousLesson(){
+
+    index--;
+
+    if(index < 0){
+        index = lessons.length - 1;
+    }
+
+    displayLesson();
+
+}
+
+
+/* Random */
+
+function randomLesson(){
+
+    index =
+        Math.floor(
+            Math.random() * lessons.length
+        );
+
+    displayLesson();
+
+}
+
+
+/* =========================
+   RADHA COUNTER
+========================= */
+
+let radha =
+    Number(
+        localStorage.getItem("radha_count") || 0
+    );
+
+
+function addRadha(){
+
+    radha++;
+
+    localStorage.setItem(
+        "radha_count",
+        radha
+    );
+
+    document.getElementById("counter")
+        .innerText = radha;
+
+}
+
+
+/* =========================
+   SHOW ALL
+========================= */
+
+function showAll(){
+
+    const list =
+        document.getElementById("list");
+
+    if(list.style.display === "block"){
+
+        list.style.display = "none";
+
+        return;
+
+    }
+
+    list.style.display = "block";
+
+    list.innerHTML = "";
+
+    lessons.forEach(function(item,i){
+
+        const p =
+            document.createElement("p");
+
+        p.innerHTML =
+            "<b>" +
+            (i + 1) +
+            ".</b> " +
+            item;
+
+        list.appendChild(p);
+
+    });
+
+}
+
+
+/* =========================
+   QUIZ
+========================= */
+
+const quiz = [
+
+[
+"भारत की राजधानी क्या है?",
+["मुंबई","नई दिल्ली","जयपुर"],
+1
+],
+
+[
+"सूर्य किस दिशा से उगता है?",
+["पूर्व","पश्चिम","उत्तर"],
+0
+],
+
+[
+"एक सप्ताह में कितने दिन होते हैं?",
+["5","7","10"],
+1
+],
+
+[
+"पानी का रासायनिक सूत्र क्या है?",
+["CO2","H2O","O2"],
+1
+],
+
+[
+"पृथ्वी का प्राकृतिक उपग्रह कौन है?",
+["चंद्रमा","सूर्य","मंगल"],
+0
+],
+
+[
+"भारत का राष्ट्रीय पशु कौन है?",
+["शेर","बाघ","हाथी"],
+1
+],
+
+[
+"15 + 10 कितना होता है?",
+["20","25","30"],
+1
+],
+
+[
+"भारत का राष्ट्रीय पक्षी कौन है?",
+["मोर","तोता","हंस"],
+0
+]
+
+];
+
+
+function showQuiz(){
+
+    const number =
+        getToday() % quiz.length;
+
+    const q =
+        quiz[number];
+
+    document.getElementById("question")
+        .innerText = q[0];
+
+    const box =
+        document.getElementById("options");
+
+    box.innerHTML = "";
+
+    document.getElementById("feedback")
+        .innerText = "";
+
+    q[1].forEach(function(answer,i){
+
+        const button =
+            document.createElement("button");
+
+        button.innerText = answer;
+
+        button.onclick = function(){
+
+            if(i === q[2]){
+
+                document.getElementById(
+                    "feedback"
+                ).innerText =
+                    "✅ सही जवाब!";
+
+            }else{
+
+                document.getElementById(
+                    "feedback"
+                ).innerText =
+                    "❌ गलत! सही जवाब: " +
+                    q[1][q[2]];
+
+            }
+
+        };
+
+        box.appendChild(button);
+
+    });
+
+}
+
+
+/* =========================
+   START
+========================= */
+
+document.getElementById("counter")
+    .innerText = radha;
+
+displayLesson();
+
+showQuiz();
+
+</script>
+
+</body>
+</html>
