@@ -6,225 +6,413 @@
 <title>Late Night Talks?</title>
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;500;600;700&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-body {
-    min-height: 100vh;
-    overflow: hidden;
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+html,body{
+    width:100%;
+    height:100%;
+}
+
+body{
+    overflow:hidden;
+    font-family:Poppins,sans-serif;
     background:
-        radial-gradient(circle at 50% 40%, #ff4f91 0%, #c91862 35%, #650d3e 70%, #24051e 100%);
+      radial-gradient(circle at 50% 30%,#ff4c98 0%,#e51b70 28%,#9d0751 58%,#40072f 100%);
+    color:white;
 }
 
-/* Glow */
-body::before {
-    content: "";
-    position: fixed;
-    width: 350px;
-    height: 350px;
-    border-radius: 50%;
-    background: rgba(255, 105, 180, 0.35);
-    filter: blur(80px);
-    top: 15%;
-    left: 50%;
-    transform: translateX(-50%);
+/* Background glow */
+.glow{
+    position:fixed;
+    width:320px;
+    height:320px;
+    border-radius:50%;
+    background:#ff62aa;
+    filter:blur(90px);
+    opacity:.55;
+    left:50%;
+    top:28%;
+    transform:translate(-50%,-50%);
+    pointer-events:none;
 }
 
 /* Floating hearts */
-.hearts {
-    position: fixed;
-    inset: 0;
-    overflow: hidden;
-    pointer-events: none;
+#hearts{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    pointer-events:none;
 }
 
-.heart {
-    position: absolute;
-    bottom: -60px;
-    color: rgba(255, 255, 255, 0.75);
-    font-size: 22px;
-    animation: floatUp linear infinite;
-    filter: drop-shadow(0 0 8px rgba(255,255,255,.5));
+.heart{
+    position:absolute;
+    bottom:-70px;
+    color:rgba(255,255,255,.72);
+    text-shadow:0 0 12px rgba(255,150,210,.9);
+    animation:rise linear infinite;
+    opacity:0;
 }
 
-@keyframes floatUp {
-    0% {
-        transform: translateY(0) rotate(0deg) scale(.8);
-        opacity: 0;
+@keyframes rise{
+    0%{
+        transform:translateY(0) rotate(0deg) scale(.7);
+        opacity:0;
     }
-    15% {
-        opacity: 1;
+    12%{
+        opacity:.8;
     }
-    100% {
-        transform: translateY(-115vh) rotate(360deg) scale(1.4);
-        opacity: 0;
+    85%{
+        opacity:.7;
+    }
+    100%{
+        transform:translateY(-115vh) rotate(360deg) scale(1.15);
+        opacity:0;
     }
 }
 
-/* Main card */
-.card {
-    position: relative;
-    z-index: 5;
-    width: min(88%, 390px);
-    padding: 42px 25px 32px;
-    text-align: center;
-    border-radius: 28px;
-    background: rgba(255, 255, 255, 0.12);
-    border: 1px solid rgba(255,255,255,.3);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
+/* Main area */
+.page{
+    position:relative;
+    z-index:3;
+    width:100%;
+    height:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+/* Glass card */
+.card{
+    width:min(92vw,525px);
+    min-height:570px;
+    padding:58px 34px 30px;
+    border-radius:34px;
+
+    background:rgba(255,125,181,.19);
+    border:1px solid rgba(255,255,255,.42);
+
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+
     box-shadow:
-        0 20px 60px rgba(0,0,0,.35),
-        inset 0 1px 1px rgba(255,255,255,.25);
+      0 25px 80px rgba(45,0,30,.38),
+      inset 0 1px 0 rgba(255,255,255,.28);
+
+    text-align:center;
+
+    animation:cardIn 1s ease;
+}
+
+@keyframes cardIn{
+    from{
+        opacity:0;
+        transform:translateY(25px) scale(.96);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
 }
 
 /* Moon */
-.moon {
-    width: 72px;
-    height: 72px;
-    margin: 0 auto 22px;
-    border-radius: 50%;
-    background: #fff4fb;
+.moon{
+    position:relative;
+    width:100px;
+    height:100px;
+    border-radius:50%;
+    margin:0 auto 30px;
+
+    background:#fff8fc;
+
     box-shadow:
-        0 0 20px #fff,
-        0 0 45px rgba(255,255,255,.7);
-    position: relative;
-    overflow: hidden;
+      0 0 18px #fff,
+      0 0 38px #ffb4dc,
+      0 0 75px rgba(255,255,255,.55);
+
+    overflow:hidden;
 }
 
-.moon::after {
-    content: "";
-    position: absolute;
-    width: 75px;
-    height: 75px;
-    border-radius: 50%;
-    background: #8e1c58;
-    top: -12px;
-    left: 25px;
+.moon:after{
+    content:"";
+    position:absolute;
+
+    width:100px;
+    height:100px;
+
+    border-radius:50%;
+
+    background:#921653;
+
+    left:34px;
+    top:-13px;
 }
 
-/* Text */
-h1 {
-    color: white;
-    font-size: 32px;
-    font-weight: 700;
-    letter-spacing: .5px;
-    text-shadow: 0 2px 15px rgba(0,0,0,.3);
-    margin-bottom: 10px;
+/* Heading */
+h1{
+    font-family:Pacifico,cursive;
+    font-size:43px;
+    line-height:1.2;
+    margin-bottom:13px;
+
+    text-shadow:
+      0 3px 12px rgba(80,0,40,.35);
 }
 
-.subtitle {
-    color: rgba(255,255,255,.9);
-    font-size: 15px;
-    margin-bottom: 28px;
+.subtitle{
+    font-family:Pacifico,cursive;
+    font-size:17px;
+    opacity:.95;
+    margin-bottom:38px;
 }
 
 /* Buttons */
-.buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 13px;
+.buttons{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
 }
 
-button {
-    width: 100%;
-    border: none;
-    padding: 15px 20px;
-    border-radius: 50px;
-    font-size: 17px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: .25s ease;
-    font-family: inherit;
+button{
+    font-family:Pacifico,cursive;
+    font-size:23px;
+    width:100%;
+    height:68px;
+    border-radius:50px;
+    cursor:pointer;
+
+    transition:
+      transform .2s ease,
+      box-shadow .2s ease;
 }
 
-.yes {
-    background: white;
-    color: #d51d6b;
-    box-shadow: 0 8px 25px rgba(0,0,0,.2);
+button:active{
+    transform:scale(.94);
 }
 
-.forever {
-    background: rgba(255,255,255,.15);
-    color: white;
-    border: 1px solid rgba(255,255,255,.5);
+/* 100% button */
+.yes{
+    border:0;
+    background:#fff;
+    color:#c62c70;
+
+    box-shadow:
+      0 7px 25px rgba(70,0,35,.25);
 }
 
-button:hover {
-    transform: scale(1.04);
+.yes:hover{
+    transform:scale(1.03);
+    box-shadow:0 10px 30px rgba(255,255,255,.35);
 }
 
-button:active {
-    transform: scale(.96);
+/* Forever */
+.forever{
+    background:rgba(255,255,255,.07);
+    border:1px solid rgba(255,255,255,.65);
+    color:white;
+
+    box-shadow:inset 0 0 20px rgba(255,255,255,.05);
+}
+
+.forever:hover{
+    transform:scale(1.03);
+    background:rgba(255,255,255,.14);
 }
 
 /* Instagram */
-.instagram {
-    margin-top: 25px;
-    color: rgba(255,255,255,.8);
-    font-size: 13px;
+.instagram{
+    margin-top:39px;
+    font-size:13px;
+    opacity:.9;
 }
 
-.instagram span {
-    color: white;
-    font-weight: bold;
+.instagram b{
+    font-weight:700;
+}
+
+/* Bottom dots */
+.dots{
+    margin-top:18px;
+    display:flex;
+    justify-content:center;
+    gap:7px;
+}
+
+.dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:rgba(255,255,255,.35);
+}
+
+.dot.active{
+    background:white;
+    box-shadow:0 0 8px white;
 }
 
 /* Popup */
-.message {
-    position: fixed;
-    z-index: 20;
-    inset: 0;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    background: rgba(20,0,15,.55);
-    backdrop-filter: blur(8px);
+.popup{
+    position:fixed;
+    z-index:20;
+    inset:0;
+
+    display:none;
+    justify-content:center;
+    align-items:center;
+
+    padding:20px;
+
+    background:rgba(45,0,30,.42);
+    backdrop-filter:blur(9px);
+    -webkit-backdrop-filter:blur(9px);
 }
 
-.message-box {
-    width: min(85%, 350px);
-    padding: 35px 25px;
-    text-align: center;
-    border-radius: 25px;
-    background: rgba(255,255,255,.16);
-    border: 1px solid rgba(255,255,255,.4);
-    color: white;
-    box-shadow: 0 20px 60px rgba(0,0,0,.4);
+.popup.show{
+    display:flex;
 }
 
-.message-box h2 {
-    margin-bottom: 12px;
-    font-size: 28px;
+.popupBox{
+    width:min(90vw,475px);
+    padding:42px 28px 30px;
+
+    text-align:center;
+
+    border-radius:30px;
+
+    background:rgba(255,183,215,.25);
+    border:1px solid rgba(255,255,255,.5);
+
+    box-shadow:
+      0 25px 70px rgba(30,0,20,.4),
+      inset 0 1px 0 rgba(255,255,255,.3);
+
+    animation:pop .35s ease;
 }
 
-.message-box p {
-    line-height: 1.5;
-    margin-bottom: 22px;
+@keyframes pop{
+    from{
+        opacity:0;
+        transform:scale(.8);
+    }
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
 }
 
-.close {
-    width: auto;
-    padding: 11px 28px;
-    background: white;
-    color: #d51d6b;
+.popupTitle{
+    font-family:Pacifico,cursive;
+    font-size:34px;
+    margin-bottom:15px;
+}
+
+.popupText{
+    font-family:Pacifico,cursive;
+    font-size:16px;
+    line-height:1.6;
+    margin-bottom:25px;
+}
+
+.close{
+    width:125px;
+    height:55px;
+    border:0;
+    background:white;
+    color:#bd286c;
+    font-size:19px;
+}
+
+/* Result screen */
+.result{
+    display:none;
+}
+
+.result.show{
+    display:flex;
+}
+
+.resultCard{
+    width:min(90vw,500px);
+    padding:42px 25px;
+    text-align:center;
+
+    border-radius:30px;
+
+    background:rgba(255,170,205,.2);
+    border:1px solid rgba(255,255,255,.45);
+
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+
+    box-shadow:0 25px 70px rgba(40,0,25,.45);
+}
+
+.resultTitle{
+    font-family:Pacifico,cursive;
+    font-size:36px;
+    margin-bottom:12px;
+}
+
+.resultText{
+    font-family:Pacifico,cursive;
+    font-size:17px;
+    line-height:1.6;
+    margin-bottom:25px;
+}
+
+.back{
+    width:130px;
+    height:52px;
+    border:0;
+    background:white;
+    color:#c1276b;
 }
 
 /* Mobile */
-@media (max-width: 400px) {
-    h1 {
-        font-size: 28px;
+@media(max-width:500px){
+
+    .card{
+        min-height:0;
+        padding:48px 24px 27px;
+        border-radius:29px;
     }
 
-    .card {
-        padding: 35px 20px 28px;
+    .moon{
+        width:90px;
+        height:90px;
+        margin-bottom:25px;
+    }
+
+    .moon:after{
+        width:90px;
+        height:90px;
+        left:31px;
+        top:-11px;
+    }
+
+    h1{
+        font-size:34px;
+    }
+
+    .subtitle{
+        font-size:15px;
+        margin-bottom:30px;
+    }
+
+    button{
+        height:62px;
+        font-size:21px;
+    }
+
+    .instagram{
+        margin-top:30px;
+        font-size:12px;
     }
 }
 </style>
@@ -232,46 +420,64 @@ button:active {
 
 <body>
 
-<!-- Floating hearts -->
-<div class="hearts" id="hearts"></div>
+<div class="glow"></div>
 
-<!-- Main card -->
-<div class="card">
+<div id="hearts"></div>
 
-    <div class="moon"></div>
+<!-- HOME -->
+<main class="page" id="home">
 
-    <h1>Late Night Talks?</h1>
+    <section class="card">
 
-    <div class="subtitle">
-        Just you, me & a little midnight magic 🌙
-    </div>
+        <div class="moon"></div>
 
-    <div class="buttons">
-        <button class="yes" onclick="showMessage('yes')">
-            100% 💗
-        </button>
+        <h1>Late Night Talks?</h1>
 
-        <button class="forever" onclick="showMessage('forever')">
-            FOREVER ✨
-        </button>
-    </div>
+        <div class="subtitle">
+            Just you, me & a little midnight magic 🌙
+        </div>
 
-    <div class="instagram">
-        made with ♡ by <span>@yourusername</span>
-    </div>
+        <div class="buttons">
 
-</div>
+            <button class="yes" onclick="yesClicked()">
+                100% 💗
+            </button>
 
-<!-- Popup -->
-<div class="message" id="message">
+            <button class="forever" onclick="foreverClicked()">
+                FOREVER ✨
+            </button>
 
-    <div class="message-box">
+        </div>
 
-        <h2 id="messageTitle">💗</h2>
+        <div class="instagram">
+            made with ♡ by <b>@mr.prashan.t.18</b>
+        </div>
 
-        <p id="messageText"></p>
+        <div class="dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
 
-        <button class="close" onclick="closeMessage()">
+    </section>
+
+</main>
+
+
+<!-- YES POPUP -->
+<div class="popup" id="yesPopup">
+
+    <div class="popupBox">
+
+        <div class="popupTitle">
+            💗 Yayyy!
+        </div>
+
+        <div class="popupText">
+            Then let's make tonight a little more special ✨🌙
+        </div>
+
+        <button class="close" onclick="closePopup()">
             Close
         </button>
 
@@ -279,70 +485,155 @@ button:active {
 
 </div>
 
+
+<!-- FOREVER POPUP -->
+<div class="popup" id="foreverPopup">
+
+    <div class="popupBox">
+
+        <div class="popupTitle">
+            ∞ FOREVER ∞
+        </div>
+
+        <div class="popupText">
+            Some conversations are worth staying up for. 💕
+        </div>
+
+        <button class="close" onclick="closePopup()">
+            Close
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- RESULT -->
+<div class="popup result" id="result">
+
+    <div class="resultCard">
+
+        <div class="resultTitle">
+            Found 1 Result ❤️
+        </div>
+
+        <div class="resultText">
+            Someone is waiting for your late night talks... 🌙💗
+        </div>
+
+        <button class="back" onclick="backHome()">
+            Back
+        </button>
+
+    </div>
+
+</div>
+
+
 <script>
 
-/* Create floating hearts */
-const hearts = document.getElementById("hearts");
+/* =========================
+   FLOATING HEARTS
+========================= */
 
-const heartSymbols = ["♥", "♡", "❤", "💕", "💗"];
+const heartContainer = document.getElementById("hearts");
 
-for (let i = 0; i < 35; i++) {
+const symbols = [
+    "♡",
+    "♥",
+    "❤",
+    "💕",
+    "💗",
+    "💖",
+    "♡"
+];
+
+function createHeart(){
 
     const heart = document.createElement("div");
 
     heart.className = "heart";
 
     heart.innerHTML =
-        heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+        symbols[Math.floor(Math.random()*symbols.length)];
 
-    heart.style.left = Math.random() * 100 + "%";
+    heart.style.left =
+        Math.random()*100 + "%";
 
     heart.style.fontSize =
-        (12 + Math.random() * 25) + "px";
+        (12 + Math.random()*28) + "px";
+
+    const duration =
+        7 + Math.random()*8;
 
     heart.style.animationDuration =
-        (6 + Math.random() * 8) + "s";
+        duration + "s";
 
     heart.style.animationDelay =
-        (Math.random() * 8) + "s";
+        (Math.random()*2) + "s";
 
-    hearts.appendChild(heart);
+    heartContainer.appendChild(heart);
+
+    setTimeout(()=>{
+        heart.remove();
+    },(duration+3)*1000);
+}
+
+/* Keep creating hearts */
+setInterval(createHeart,450);
+
+/* Initial hearts */
+for(let i=0;i<22;i++){
+    setTimeout(createHeart,i*180);
 }
 
 
-/* Button messages */
-function showMessage(type) {
+/* =========================
+   BUTTONS
+========================= */
 
-    const popup = document.getElementById("message");
-    const title = document.getElementById("messageTitle");
-    const text = document.getElementById("messageText");
+function yesClicked(){
 
-    if (type === "yes") {
+    /*
+      अगर 100% दबाने पर result screen चाहिए,
+      तो नीचे वाली line को use किया गया है.
+    */
 
-        title.innerHTML = "💗 Yayyy!";
+    document.getElementById("result")
+        .classList.add("show");
+}
 
-        text.innerHTML =
-            "Then let's make tonight a little more special ✨🌙";
+function foreverClicked(){
 
-    } else {
+    document.getElementById("foreverPopup")
+        .classList.add("show");
+}
 
-        title.innerHTML = "∞ FOREVER ∞";
+function closePopup(){
 
-        text.innerHTML =
-            "Some conversations are worth staying up for. 💕";
+    document.getElementById("yesPopup")
+        .classList.remove("show");
 
+    document.getElementById("foreverPopup")
+        .classList.remove("show");
+}
+
+function backHome(){
+
+    document.getElementById("result")
+        .classList.remove("show");
+}
+
+
+/* ESC key */
+document.addEventListener("keydown",function(e){
+
+    if(e.key==="Escape"){
+        closePopup();
+        backHome();
     }
 
-    popup.style.display = "flex";
-}
-
-
-/* Close popup */
-function closeMessage() {
-
-    document.getElementById("message").style.display = "none";
-
-}
+});
 
 </script>
 
