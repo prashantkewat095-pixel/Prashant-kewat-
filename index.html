@@ -14,7 +14,7 @@
 
 html,body{
   width:100%;
-  min-height:100%;
+  height:100%;
 }
 
 body{
@@ -22,25 +22,25 @@ body{
   font-family:Arial,sans-serif;
   color:white;
   background:
-    radial-gradient(circle at 50% 20%,#ff65ad 0%,#ef207d 35%,#a90755 68%,#42052e 100%);
+    radial-gradient(circle at 50% 20%,#ff65ad 0%,#ed1978 35%,#990650 68%,#40052d 100%);
 }
 
-/* BACKGROUND */
-.bg-glow{
+/* Background glow */
+.glow{
   position:fixed;
-  width:300px;
-  height:300px;
+  width:320px;
+  height:320px;
   border-radius:50%;
-  background:#ff9dce;
+  background:#ff9dd0;
   filter:blur(90px);
-  opacity:.35;
+  opacity:.4;
   top:5%;
   left:50%;
   transform:translateX(-50%);
   pointer-events:none;
 }
 
-/* FLOATING HEARTS */
+/* Floating hearts */
 #hearts{
   position:fixed;
   inset:0;
@@ -72,7 +72,7 @@ body{
   }
 }
 
-/* SCREENS */
+/* Screens */
 .screen{
   position:fixed;
   inset:0;
@@ -90,22 +90,26 @@ body{
   display:flex;
 }
 
-/* CARD */
+/* Card */
 .card{
   width:100%;
   max-width:540px;
   max-height:92vh;
   overflow:auto;
-  padding:48px 28px 30px;
+  padding:50px 28px 30px;
   text-align:center;
   border-radius:34px;
+
   background:rgba(255,150,200,.19);
   border:1px solid rgba(255,255,255,.48);
+
   backdrop-filter:blur(20px);
   -webkit-backdrop-filter:blur(20px);
+
   box-shadow:
     0 25px 80px rgba(30,0,25,.4),
     inset 0 1px 0 rgba(255,255,255,.3);
+
   animation:cardIn .5s ease;
 }
 
@@ -120,7 +124,7 @@ body{
   }
 }
 
-/* MOON */
+/* Moon */
 .moon{
   width:100px;
   height:100px;
@@ -129,10 +133,12 @@ body{
   background:#fffaff;
   position:relative;
   overflow:hidden;
+
   box-shadow:
     0 0 20px white,
     0 0 50px #ffb6dc,
     0 0 90px rgba(255,255,255,.4);
+
   animation:moonGlow 3s infinite ease-in-out;
 }
 
@@ -156,7 +162,7 @@ body{
   top:-12px;
 }
 
-/* TEXT */
+/* Text */
 h1,h2{
   font-family:cursive;
 }
@@ -179,22 +185,29 @@ h2{
   margin-bottom:30px;
 }
 
-/* BUTTONS */
+/* Buttons */
 .btn{
   width:100%;
   min-height:62px;
   border-radius:50px;
   margin-top:15px;
+
   border:1px solid rgba(255,255,255,.65);
+
   font-family:cursive;
   font-size:22px;
   font-weight:bold;
+
   cursor:pointer;
   transition:.25s;
 }
 
 .btn:active{
-  transform:scale(.94);
+  transform:scale(.93);
+}
+
+.btn:hover{
+  transform:scale(1.03);
 }
 
 .primary{
@@ -209,11 +222,7 @@ h2{
   background:rgba(255,255,255,.08);
 }
 
-.btn:hover{
-  transform:scale(1.03);
-}
-
-/* INSTAGRAM */
+/* Instagram */
 .instagram{
   display:block;
   margin-top:28px;
@@ -222,7 +231,11 @@ h2{
   font-size:14px;
 }
 
-/* DOTS */
+.instagram:hover{
+  text-decoration:underline;
+}
+
+/* Dots */
 .dots{
   margin-top:18px;
 }
@@ -241,7 +254,7 @@ h2{
   box-shadow:0 0 10px white;
 }
 
-/* GALLERY */
+/* Gallery */
 .gallery{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -250,51 +263,70 @@ h2{
 }
 
 .photo{
-  height:140px;
+  height:135px;
   border-radius:20px;
+
   display:flex;
   align-items:center;
   justify-content:center;
+
   font-size:42px;
+
   background:
-    linear-gradient(135deg,
+    linear-gradient(
+      135deg,
       rgba(255,255,255,.28),
-      rgba(255,100,170,.2));
+      rgba(255,100,170,.2)
+    );
+
   border:1px solid rgba(255,255,255,.4);
 }
 
-/* MUSIC */
+/* Music */
 .music-circle{
-  width:115px;
-  height:115px;
+  width:120px;
+  height:120px;
   border-radius:50%;
-  margin:20px auto;
+
+  margin:10px auto 25px;
+
   display:flex;
   align-items:center;
   justify-content:center;
-  background:rgba(255,255,255,.16);
+
+  background:rgba(255,255,255,.15);
   border:1px solid rgba(255,255,255,.55);
+
   font-size:48px;
-  box-shadow:0 0 35px rgba(255,255,255,.2);
+
+  box-shadow:0 0 40px rgba(255,255,255,.2);
+
+  animation:musicPulse 2s infinite;
 }
 
-/* FINAL */
+@keyframes musicPulse{
+  50%{
+    transform:scale(1.06);
+  }
+}
+
+/* Final heart */
 .final-heart{
   font-size:80px;
-  animation:beat 1.2s infinite;
+  animation:heartBeat 1.2s infinite;
 }
 
-@keyframes beat{
+@keyframes heartBeat{
   50%{
     transform:scale(1.18);
   }
 }
 
-/* MOBILE */
+/* Mobile */
 @media(max-width:500px){
 
   .card{
-    padding:42px 22px 26px;
+    padding:43px 22px 27px;
   }
 
   .moon{
@@ -328,7 +360,7 @@ h2{
   }
 
   .photo{
-    height:120px;
+    height:115px;
   }
 }
 </style>
@@ -336,7 +368,8 @@ h2{
 
 <body>
 
-<div class="bg-glow"></div>
+<div class="glow"></div>
+
 <div id="hearts"></div>
 
 
@@ -354,18 +387,23 @@ h2{
       Just you, me & a little midnight magic 🌙
     </div>
 
-    <button class="btn primary" onclick="showScreen('result')">
+    <button
+      class="btn primary"
+      onclick="showScreen('result')">
       100% 💗
     </button>
 
-    <button class="btn secondary" onclick="showScreen('forever')">
+    <button
+      class="btn secondary"
+      onclick="showScreen('forever')">
       FOREVER ✨
     </button>
 
-    <a class="instagram"
-       href="https://www.instagram.com/mr.prashan.t.18/"
-       target="_blank">
-      made with ♡ by <b>@mr.prashan.t.18</b>
+    <a
+      class="instagram"
+      href="https://www.instagram.com/mr.prashant.t_18/"
+      target="_blank">
+      made with ♡ by <b>@mr.prashant.t_18</b>
     </a>
 
     <div class="dots">
@@ -391,13 +429,15 @@ h2{
       Someone is waiting for your late night talks... 🌙💗
     </div>
 
-    <button class="btn primary"
-            onclick="showScreen('message')">
+    <button
+      class="btn primary"
+      onclick="showScreen('message')">
       Next 💕
     </button>
 
-    <button class="btn secondary"
-            onclick="showScreen('home')">
+    <button
+      class="btn secondary"
+      onclick="showScreen('home')">
       Back
     </button>
 
@@ -412,7 +452,9 @@ h2{
 
   <div class="card">
 
-    <div style="font-size:65px;">💌</div>
+    <div style="font-size:65px;">
+      💌
+    </div>
 
     <h2>One Special Message</h2>
 
@@ -420,17 +462,21 @@ h2{
       Some conversations are special,
       some people are special,
       and some moments are worth remembering forever. 💗
+
       <br><br>
+
       Tonight is just a little midnight magic. 🌙✨
     </div>
 
-    <button class="btn primary"
-            onclick="showScreen('gallery')">
+    <button
+      class="btn primary"
+      onclick="showScreen('gallery')">
       Next 📸
     </button>
 
-    <button class="btn secondary"
-            onclick="showScreen('result')">
+    <button
+      class="btn secondary"
+      onclick="showScreen('result')">
       Back
     </button>
 
@@ -448,7 +494,7 @@ h2{
     <h2>Our Little Gallery 📸</h2>
 
     <div class="message">
-      You can replace these boxes with your own photos later. 💕
+      Photos can be added here later. 💕
     </div>
 
     <div class="gallery">
@@ -460,13 +506,15 @@ h2{
 
     </div>
 
-    <button class="btn primary"
-            onclick="showScreen('music')">
+    <button
+      class="btn primary"
+      onclick="showScreen('music')">
       Next 🎵
     </button>
 
-    <button class="btn secondary"
-            onclick="showScreen('message')">
+    <button
+      class="btn secondary"
+      onclick="showScreen('message')">
       Back
     </button>
 
@@ -481,29 +529,34 @@ h2{
 
   <div class="card">
 
-    <div class="music-circle" id="musicIcon">
+    <div
+      class="music-circle"
+      id="musicIcon">
       🎵
     </div>
 
     <h2>Midnight Music 🌙</h2>
 
     <div class="message">
-      Tap the button to play a soft little sound. ✨
+      Tap Play Music and a soft melody will start. ✨
     </div>
 
-    <button class="btn primary"
-            onclick="toggleMusic()"
-            id="musicButton">
+    <button
+      class="btn primary"
+      id="musicButton"
+      onclick="toggleMusic()">
       ▶ Play Music
     </button>
 
-    <button class="btn primary"
-            onclick="showScreen('final')">
+    <button
+      class="btn primary"
+      onclick="showScreen('final')">
       Next ✨
     </button>
 
-    <button class="btn secondary"
-            onclick="showScreen('gallery')">
+    <button
+      class="btn secondary"
+      onclick="showScreen('gallery')">
       Back
     </button>
 
@@ -518,7 +571,9 @@ h2{
 
   <div class="card">
 
-    <div class="final-heart">💗</div>
+    <div class="final-heart">
+      💗
+    </div>
 
     <h2>∞ FOREVER ∞</h2>
 
@@ -526,10 +581,18 @@ h2{
       Some conversations are worth staying up for. 💕
     </div>
 
-    <button class="btn primary"
-            onclick="showScreen('result')">
+    <button
+      class="btn primary"
+      onclick="showScreen('result')">
       Start Again 🔄
     </button>
+
+    <a
+      class="instagram"
+      href="https://www.instagram.com/mr.prashant.t_18/"
+      target="_blank">
+      @mr.prashant.t_18
+    </a>
 
   </div>
 
@@ -542,20 +605,25 @@ h2{
 
   <div class="card">
 
-    <div class="final-heart">💖</div>
+    <div class="final-heart">
+      💖
+    </div>
 
     <h2>Forever & Always ✨</h2>
 
     <div class="message">
       The night may end,
       but beautiful memories don't. 🌙
+
       <br><br>
+
       Made with ♡ by
-      <b>@mr.prashan.t.18</b>
+      <b>@mr.prashant.t_18</b>
     </div>
 
-    <button class="btn primary"
-            onclick="showScreen('home')">
+    <button
+      class="btn primary"
+      onclick="showScreen('home')">
       Back to Start 💕
     </button>
 
@@ -566,29 +634,40 @@ h2{
 
 <script>
 
-/* ================= SCREEN SYSTEM ================= */
+/* =================================
+   SCREEN CHANGE
+================================= */
 
 function showScreen(id){
 
-  const screens =
-    document.querySelectorAll(".screen");
+  document
+    .querySelectorAll(".screen")
+    .forEach(function(screen){
 
-  screens.forEach(function(screen){
-    screen.classList.remove("active");
-  });
+      screen.classList.remove("active");
 
-  document.getElementById(id)
+    });
+
+  document
+    .getElementById(id)
     .classList.add("active");
 }
 
 
-/* ================= FLOATING HEARTS ================= */
+/* =================================
+   FLOATING HEARTS
+================================= */
 
-const hearts =
+const heartContainer =
   document.getElementById("hearts");
 
-const symbols = [
-  "♡","♥","💕","💗","💖","💞"
+const heartSymbols = [
+  "♡",
+  "♥",
+  "💕",
+  "💗",
+  "💖",
+  "💞"
 ];
 
 function createHeart(){
@@ -599,34 +678,42 @@ function createHeart(){
   heart.className = "heart";
 
   heart.innerText =
-    symbols[
-      Math.floor(Math.random()*symbols.length)
+    heartSymbols[
+      Math.floor(
+        Math.random() *
+        heartSymbols.length
+      )
     ];
 
   heart.style.left =
-    Math.random()*100 + "vw";
+    Math.random() * 100 + "vw";
 
   heart.style.fontSize =
-    (14 + Math.random()*25) + "px";
+    (14 + Math.random() * 25) + "px";
 
   const duration =
-    6 + Math.random()*7;
+    6 + Math.random() * 7;
 
   heart.style.animationDuration =
     duration + "s";
 
-  hearts.appendChild(heart);
+  heartContainer.appendChild(heart);
 
   setTimeout(function(){
+
     heart.remove();
-  },duration*1000);
+
+  },duration * 1000);
 }
 
-for(let i=0;i<25;i++){
+
+/* Start hearts */
+
+for(let i = 0; i < 25; i++){
 
   setTimeout(
     createHeart,
-    i*250
+    i * 220
   );
 
 }
@@ -637,30 +724,44 @@ setInterval(
 );
 
 
-/* ================= SIMPLE MUSIC ================= */
+/* =================================
+   MUSIC
+================================= */
 
 let audioContext = null;
 let musicPlaying = false;
 let musicTimer = null;
 
-function playTone(){
+const melody = [
+  261.63,
+  329.63,
+  392.00,
+  523.25,
+  392.00,
+  329.63,
+  293.66,
+  392.00
+];
+
+let noteIndex = 0;
+
+
+function playNote(){
 
   if(!audioContext){
-    audioContext =
-      new (window.AudioContext ||
-      window.webkitAudioContext)();
+    return;
   }
 
-  const osc =
+  const oscillator =
     audioContext.createOscillator();
 
   const gain =
     audioContext.createGain();
 
-  osc.type = "sine";
+  oscillator.type = "sine";
 
-  osc.frequency.value =
-    392;
+  oscillator.frequency.value =
+    melody[noteIndex];
 
   gain.gain.setValueAtTime(
     0.0001,
@@ -668,32 +769,66 @@ function playTone(){
   );
 
   gain.gain.exponentialRampToValueAtTime(
-    0.06,
+    0.12,
     audioContext.currentTime + 0.05
   );
 
   gain.gain.exponentialRampToValueAtTime(
     0.0001,
-    audioContext.currentTime + 1.4
+    audioContext.currentTime + 0.6
   );
 
-  osc.connect(gain);
-  gain.connect(audioContext.destination);
+  oscillator.connect(gain);
 
-  osc.start();
-
-  osc.stop(
-    audioContext.currentTime + 1.5
+  gain.connect(
+    audioContext.destination
   );
+
+  oscillator.start();
+
+  oscillator.stop(
+    audioContext.currentTime + 0.65
+  );
+
+  noteIndex++;
+
+  if(noteIndex >= melody.length){
+
+    noteIndex = 0;
+
+  }
 }
 
-function toggleMusic(){
+
+async function toggleMusic(){
+
+  if(!audioContext){
+
+    audioContext =
+      new (
+        window.AudioContext ||
+        window.webkitAudioContext
+      )();
+
+  }
+
+  if(audioContext.state === "suspended"){
+
+    await audioContext.resume();
+
+  }
+
 
   const button =
-    document.getElementById("musicButton");
+    document.getElementById(
+      "musicButton"
+    );
 
   const icon =
-    document.getElementById("musicIcon");
+    document.getElementById(
+      "musicIcon"
+    );
+
 
   if(!musicPlaying){
 
@@ -702,27 +837,38 @@ function toggleMusic(){
     button.innerText =
       "⏸ Pause Music";
 
-    icon.innerText = "🎶";
+    icon.innerText =
+      "🎶";
 
-    playTone();
+    playNote();
 
     musicTimer =
-      setInterval(playTone,1800);
+      setInterval(
+        playNote,
+        650
+      );
 
-  }else{
+  }
+
+  else{
 
     musicPlaying = false;
 
     button.innerText =
       "▶ Play Music";
 
-    icon.innerText = "🎵";
+    icon.innerText =
+      "🎵";
 
-    clearInterval(musicTimer);
+    clearInterval(
+      musicTimer
+    );
+
   }
+
 }
 
 </script>
 
 </body>
-  </html>
+</html>
