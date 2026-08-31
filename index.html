@@ -1,56 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Late Night Talks?</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;500;600;700&display=swap');
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  min-height:100vh;
+  overflow:hidden;
+  font-family:Poppins,sans-serif;
+  color:white;
+  background:
+    radial-gradient(circle at 50% 25%,#ff54a2 0%,#ed1976 32%,#a70755 65%,#43052f 100%);
+}
+
+/* background glow */
+body:before,
+body:after{
+  content:"";
+  position:fixed;
+  border-radius:50%;
+  pointer-events:none;
+  filter:blur(80px);
+}
+
+body:before{
+  width:320px;
+  height:320px;
+  background:#ff8bc4;
+  opacity:.5;
+  top:10%;
+  left:50%;
+  transform:translateX(-50%);
+}
+
+body:after{
+  width:250px;
+  height:250px;
+  background:#ff197e;
+  opacity:.35;
+  bottom:0;
+  left:10%;
+}
+
+/* hearts */
+#hearts{
+  position:fixed;
+  inset:0;
+  overflow:hidden;
+  pointer-events:none;
+}
+
+.heart{
+  position:absolute;
+  bottom:-60px;
+  color:rgba(255,255,255,.75);
+  text-shadow:0 0 12px #ff9fd0;
+  animation:floatUp linear forwards;
+}
+
+@keyframes floatUp{
+  0%{
+    transform:translateY(0) rotate(0) scale(.6);
+    opacity:0;
+  }
+  12%{opacity:.9;}
+  85%{opacity:.7;}
+  100%{
+    transform:translateY(-115vh) rotate(360deg) scale(1.3);
+    opacity:0;
+  }
+}
+
+/* page */
+.page{
+  position:relative;
+  z-index:2;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+/* glass card */
+.card{
+  width:min(92vw,540px);
+  padding:60px 35px 30px;
+  border-radius:34px;
+
+  background:rgba(255,140,190,.18);
+  border:1px solid rgba(255,255,255,.45);
+
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+
+  box-shadow:
+    0 25px 80px rgba(45,0,30,.4),
+    inset 0 1px 0 rgba(255,255,255,.3);
+
+  text-align:center;
+
+  animation:cardAppear 1s ease;
+}
+
+@keyframes cardAppear{
+  from{
+    opacity:0;
+    transform:translateY(35px) scale(.94);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+}
+
+/* moon */
+.moon{
+  width:105px;
+  height:105px;
+  margin:0 auto 30px;
+  border-radius:50%;
+  position:relative;
+  overflow:hidden;
+
+  background:#fff8fd;
+
+  box-shadow:
+    0 0 18px white,
+    0 0 45px #ffb5dc,
+    0 0 80px rgba(255,255,255,.5);
+
+  animation:moonGlow 3s ease-in-out infinite;
+}
+
+@keyframes moonGlow{
+  50%{
+    box-shadow:
+      0 0 28px white,
+      0 0 60px #ffb5dc,
+      0 0 95px rgba(255,255,255,.55);
+  }
+}
+
+.moon:after{
+  content:"";
+  position:absolute;
+  width:105px;
+  height:105px;
+  border-radius:50%;
+  background:#941650;
+  left:38px;
+  top:-13px;
+}
+
+/* heading */
+h1{
+  font-family:Pacifico,cursive;
+  font-size:43px;
+  line-height:1.2;
+  margin-bottom:14px;
+  text-shadow:0 4px 15px rgba(80,0,40,.35);
+}
+
+.subtitle{
+  font-family:Pacifico,cursive;
+  font-size:17px;
+  margin-bottom:38px;
+}
+
+/* buttons */
+.buttons{
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+
+button{
+  font-family:Pacifico,cursive;
+  cursor:pointer;
+  transition:.25s ease;
+}
+
+button:active{
+  transform:scale(.93);
+}
+
+.yes,
+.forever{
+  width:100%;
+  height:68px;
+  border-radius:50px;
+  font-size:23px;
+}
+
+.yes{
+  border:0;
+  background:#fff;
+  color:#c52970;
+  box-shadow:0 8px 28px rgba(70,0,35,.3);
+}
+
+.yes:hover{
+  transform:scale(1.04);
+  box-shadow:0 10px 35px rgba(255,255,255,.35);
+}
+
+.forever{
+  color:white;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.65);
+}
+
+.forever:hover{
+  transform:scale(1.04);
+  background:rgba(255,255,255,.14);
+}
+
+/* instagram */
+.instagram{
+  margin-top:38px;
+  font-size:13px;
+}
+
+.instagram b{
+  font-weight:700;
+}
+
+/* dots */
+.dots{
+  margin-top:20px;
+  display:flex;
+  justify-content:center;
+  gap:7px;
+}
+
+.dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:rgba(255,255,255,.35);
+}
+
+.dot.active{
+  background:#fff;
+  box-shadow:0 0 10px white;
+}
+
+/* screens */
+.screen{
+  position:fixed;
+  inset:0;
+  z-index:10;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+
+  background:rgba(45,0,30,.42);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+
+.screen.show{
+  display:flex;
+}
+
+/* result card */
+.resultCard{
+  width:min(92vw,510px);
+  padding:45px 28px 35px;
+  text-align:center;
+
+  border-radius:32px;
+  background:rgba(255,170,205,.22);
+  border:1px solid rgba(255,255,255,.5);
+
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+
+  box-shadow:
+    0 25px 75px rgba(35,0,25,.45),
+    inset 0 1px 0 rgba(255,255,255,.3);
+
+  animation:resultIn .45s ease;
+}
+
+@keyframes resultIn{
+  from{
+    opacity:0;
+    transform:scale(.75) translateY(20px);
+  }
+  to{
+    opacity:1;
+    transform:scale(1) translateY(0);
+  }
+}
+
+.resultTitle{
+  font-family:Pacifico,cursive;
+  font-size:38px;
+  margin-bottom:16px;
+}
+
+.resultText{
+  font-family:Pacifico,cursive;
+  font-size:17px;
+  line-height:1.6;
+  margin-bottom:28px;
+}
+
+.back,
+.close{
+  width:130px;
+  height:55px;
+  border:0;
+  border-radius:50px;
+  background:#fff;
+  color:#bf286c;
+  font-size:20px;
+}
+
+/* mobile */
+@media(max-width:500px){
+
+  .card{
+    padding:50px 24px 27px;
+  }
+
+  .moon{
+    width:92px;
+    height:92px;
+  }
+
+  .moon:after{
+    width:92px;
+    height:92px;
+    left:33px;
+    top:-11px;
+  }
+
+  h1{
+    font-size:34px;
+  }
+
+  .subtitle{
+    font-size:15px;
+    margin-bottom:30px;
+  }
+
+  .yes,
+  .forever{
+    height:62px;
+    font-size:21px;
+  }
+
+  .instagram{
+    margin-top:30px;
+    font-size:12px;
+  }
+
+  .resultTitle{
+    font-size:31px;
+  }
+
+  .resultText{
+    font-size:15px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div id="hearts"></div>
+
+<!-- HOME -->
+<div class="page" id="home">
+
+  <div class="card">
+
+    <div class="moon"></div>
+
+    <h1>Late Night Talks?</h1>
+
+    <div class="subtitle">
+      Just you, me & a little midnight magic 🌙
+    </div>
+
+    <div class="buttons">
+
+      <button class="yes" onclick="showResult()">
+        100% 💗
+      </button>
+
+      <button class="forever" onclick="showForever()">
+        FOREVER ✨
+      </button>
+
+    </div>
+
+    <div class="instagram">
+      made with ♡ by <b>@mr.prashan.t.18</b>
+    </div>
+
+    <div class="dots">
+      <span class="dot active"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- RESULT -->
+<div class="screen" id="result">
+
+  <div class="resultCard">
+
+    <div class="resultTitle">
+      Found 1 Result ❤️
+    </div>
+
+    <div class="resultText">
+      Someone is waiting for your late night talks... 🌙💗
+    </div>
+
+    <button class="back" onclick="goHome()">
+      Back
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- FOREVER -->
+<div class="screen" id="forever">
+
+  <div class="resultCard">
+
+    <div class="resultTitle">
+      ∞ FOREVER ∞
+    </div>
+
+    <div class="resultText">
+      Some conversations are worth staying up for. 💕
+    </div>
+
+    <button class="close" onclick="goHome()">
+      Close
+    </button>
+
+  </div>
+
+</div>
+
+
 <script>
-const heartContainer = document.getElementById("hearts");
 
-const symbols = ["♡","♥","❤","💕","💗","💖"];
+/* =========================
+   FLOATING HEARTS
+========================= */
 
-function createHeart() {
-    const heart = document.createElement("div");
+const container = document.getElementById("hearts");
 
-    heart.className = "heart";
-    heart.textContent =
-        symbols[Math.floor(Math.random() * symbols.length)];
+const heartSymbols = [
+  "♡","♥","❤","💕","💗","💖","💞"
+];
 
-    heart.style.left = Math.random() * 100 + "%";
-    heart.style.fontSize = (12 + Math.random() * 28) + "px";
+function createHeart(){
 
-    const duration = 7 + Math.random() * 8;
-    heart.style.animationDuration = duration + "s";
+  const heart = document.createElement("div");
 
-    heartContainer.appendChild(heart);
+  heart.className = "heart";
 
-    setTimeout(() => {
-        heart.remove();
-    }, duration * 1000);
+  heart.textContent =
+    heartSymbols[
+      Math.floor(Math.random()*heartSymbols.length)
+    ];
+
+  heart.style.left =
+    Math.random()*100 + "vw";
+
+  heart.style.fontSize =
+    (12 + Math.random()*28) + "px";
+
+  const duration =
+    7 + Math.random()*8;
+
+  heart.style.animationDuration =
+    duration + "s";
+
+  container.appendChild(heart);
+
+  setTimeout(()=>{
+    heart.remove();
+  },duration*1000);
 }
 
-for (let i = 0; i < 25; i++) {
-    setTimeout(createHeart, i * 200);
+/* start hearts */
+for(let i=0;i<30;i++){
+  setTimeout(createHeart,i*150);
 }
 
-setInterval(createHeart, 500);
+setInterval(createHeart,450);
 
 
-/* 100% BUTTON */
-function yesClicked() {
-    document.getElementById("result").classList.add("show");
+/* =========================
+   BUTTON ACTIONS
+========================= */
+
+function showResult(){
+
+  document.getElementById("result")
+    .classList.add("show");
+
+}
+
+function showForever(){
+
+  document.getElementById("forever")
+    .classList.add("show");
+
+}
+
+function goHome(){
+
+  document.getElementById("result")
+    .classList.remove("show");
+
+  document.getElementById("forever")
+    .classList.remove("show");
+
 }
 
 
-/* FOREVER BUTTON */
-function foreverClicked() {
-    document.getElementById("foreverPopup").classList.add("show");
-}
+/* close popup when clicking outside */
+document.querySelectorAll(".screen").forEach(screen=>{
 
+  screen.addEventListener("click",function(e){
 
-/* CLOSE */
-function closePopup() {
-    document.getElementById("yesPopup").classList.remove("show");
-    document.getElementById("foreverPopup").classList.remove("show");
-}
+    if(e.target === screen){
+      goHome();
+    }
 
+  });
 
-/* BACK */
-function backHome() {
-    document.getElementById("result").classList.remove("show");
-}
+});
+
 </script>
+
+</body>
+</html>
