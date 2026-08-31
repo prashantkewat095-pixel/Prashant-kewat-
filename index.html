@@ -6,299 +6,113 @@
 <title>Late Night Talks?</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;500;600;700&display=swap');
-
 *{
   margin:0;
   padding:0;
   box-sizing:border-box;
 }
 
+html,body{
+  width:100%;
+  min-height:100%;
+}
+
 body{
-  min-height:100vh;
   overflow:hidden;
-  font-family:Poppins,sans-serif;
+  font-family:Arial,sans-serif;
   color:white;
   background:
-    radial-gradient(circle at 50% 25%,#ff54a2 0%,#ed1976 32%,#a70755 65%,#43052f 100%);
+    radial-gradient(circle at 50% 20%,#ff65ad 0%,#ef207d 35%,#a90755 68%,#42052e 100%);
 }
 
-/* background glow */
-body:before,
-body:after{
-  content:"";
+/* BACKGROUND */
+.bg-glow{
   position:fixed;
+  width:300px;
+  height:300px;
   border-radius:50%;
-  pointer-events:none;
-  filter:blur(80px);
-}
-
-body:before{
-  width:320px;
-  height:320px;
-  background:#ff8bc4;
-  opacity:.5;
-  top:10%;
+  background:#ff9dce;
+  filter:blur(90px);
+  opacity:.35;
+  top:5%;
   left:50%;
   transform:translateX(-50%);
+  pointer-events:none;
 }
 
-body:after{
-  width:250px;
-  height:250px;
-  background:#ff197e;
-  opacity:.35;
-  bottom:0;
-  left:10%;
-}
-
-/* hearts */
+/* FLOATING HEARTS */
 #hearts{
   position:fixed;
   inset:0;
   overflow:hidden;
   pointer-events:none;
+  z-index:1;
 }
 
 .heart{
   position:absolute;
   bottom:-60px;
-  color:rgba(255,255,255,.75);
-  text-shadow:0 0 12px #ff9fd0;
+  color:white;
+  opacity:.75;
+  text-shadow:0 0 15px #ffb6dc;
   animation:floatUp linear forwards;
 }
 
 @keyframes floatUp{
   0%{
-    transform:translateY(0) rotate(0) scale(.6);
+    transform:translateY(0) rotate(0) scale(.5);
     opacity:0;
   }
-  12%{opacity:.9;}
-  85%{opacity:.7;}
+  15%{
+    opacity:.8;
+  }
   100%{
     transform:translateY(-115vh) rotate(360deg) scale(1.3);
     opacity:0;
   }
 }
 
-/* page */
-.page{
-  position:relative;
-  z-index:2;
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-}
-
-/* glass card */
-.card{
-  width:min(92vw,540px);
-  padding:60px 35px 30px;
-  border-radius:34px;
-
-  background:rgba(255,140,190,.18);
-  border:1px solid rgba(255,255,255,.45);
-
-  backdrop-filter:blur(18px);
-  -webkit-backdrop-filter:blur(18px);
-
-  box-shadow:
-    0 25px 80px rgba(45,0,30,.4),
-    inset 0 1px 0 rgba(255,255,255,.3);
-
-  text-align:center;
-
-  animation:cardAppear 1s ease;
-}
-
-@keyframes cardAppear{
-  from{
-    opacity:0;
-    transform:translateY(35px) scale(.94);
-  }
-  to{
-    opacity:1;
-    transform:translateY(0) scale(1);
-  }
-}
-
-/* moon */
-.moon{
-  width:105px;
-  height:105px;
-  margin:0 auto 30px;
-  border-radius:50%;
-  position:relative;
-  overflow:hidden;
-
-  background:#fff8fd;
-
-  box-shadow:
-    0 0 18px white,
-    0 0 45px #ffb5dc,
-    0 0 80px rgba(255,255,255,.5);
-
-  animation:moonGlow 3s ease-in-out infinite;
-}
-
-@keyframes moonGlow{
-  50%{
-    box-shadow:
-      0 0 28px white,
-      0 0 60px #ffb5dc,
-      0 0 95px rgba(255,255,255,.55);
-  }
-}
-
-.moon:after{
-  content:"";
-  position:absolute;
-  width:105px;
-  height:105px;
-  border-radius:50%;
-  background:#941650;
-  left:38px;
-  top:-13px;
-}
-
-/* heading */
-h1{
-  font-family:Pacifico,cursive;
-  font-size:43px;
-  line-height:1.2;
-  margin-bottom:14px;
-  text-shadow:0 4px 15px rgba(80,0,40,.35);
-}
-
-.subtitle{
-  font-family:Pacifico,cursive;
-  font-size:17px;
-  margin-bottom:38px;
-}
-
-/* buttons */
-.buttons{
-  display:flex;
-  flex-direction:column;
-  gap:18px;
-}
-
-button{
-  font-family:Pacifico,cursive;
-  cursor:pointer;
-  transition:.25s ease;
-}
-
-button:active{
-  transform:scale(.93);
-}
-
-.yes,
-.forever{
-  width:100%;
-  height:68px;
-  border-radius:50px;
-  font-size:23px;
-}
-
-.yes{
-  border:0;
-  background:#fff;
-  color:#c52970;
-  box-shadow:0 8px 28px rgba(70,0,35,.3);
-}
-
-.yes:hover{
-  transform:scale(1.04);
-  box-shadow:0 10px 35px rgba(255,255,255,.35);
-}
-
-.forever{
-  color:white;
-  background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.65);
-}
-
-.forever:hover{
-  transform:scale(1.04);
-  background:rgba(255,255,255,.14);
-}
-
-/* instagram */
-.instagram{
-  margin-top:38px;
-  font-size:13px;
-}
-
-.instagram b{
-  font-weight:700;
-}
-
-/* dots */
-.dots{
-  margin-top:20px;
-  display:flex;
-  justify-content:center;
-  gap:7px;
-}
-
-.dot{
-  width:8px;
-  height:8px;
-  border-radius:50%;
-  background:rgba(255,255,255,.35);
-}
-
-.dot.active{
-  background:#fff;
-  box-shadow:0 0 10px white;
-}
-
-/* screens */
+/* SCREENS */
 .screen{
   position:fixed;
   inset:0;
-  z-index:10;
+  z-index:5;
   display:none;
   align-items:center;
   justify-content:center;
   padding:20px;
-
-  background:rgba(45,0,30,.42);
-  backdrop-filter:blur(10px);
-  -webkit-backdrop-filter:blur(10px);
+  background:rgba(55,0,35,.25);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
 }
 
-.screen.show{
+.screen.active{
   display:flex;
 }
 
-/* result card */
-.resultCard{
-  width:min(92vw,510px);
-  padding:45px 28px 35px;
+/* CARD */
+.card{
+  width:100%;
+  max-width:540px;
+  max-height:92vh;
+  overflow:auto;
+  padding:48px 28px 30px;
   text-align:center;
-
-  border-radius:32px;
-  background:rgba(255,170,205,.22);
-  border:1px solid rgba(255,255,255,.5);
-
+  border-radius:34px;
+  background:rgba(255,150,200,.19);
+  border:1px solid rgba(255,255,255,.48);
   backdrop-filter:blur(20px);
   -webkit-backdrop-filter:blur(20px);
-
   box-shadow:
-    0 25px 75px rgba(35,0,25,.45),
+    0 25px 80px rgba(30,0,25,.4),
     inset 0 1px 0 rgba(255,255,255,.3);
-
-  animation:resultIn .45s ease;
+  animation:cardIn .5s ease;
 }
 
-@keyframes resultIn{
+@keyframes cardIn{
   from{
     opacity:0;
-    transform:scale(.75) translateY(20px);
+    transform:scale(.88) translateY(25px);
   }
   to{
     opacity:1;
@@ -306,75 +120,215 @@ button:active{
   }
 }
 
-.resultTitle{
-  font-family:Pacifico,cursive;
-  font-size:38px;
-  margin-bottom:16px;
+/* MOON */
+.moon{
+  width:100px;
+  height:100px;
+  margin:0 auto 28px;
+  border-radius:50%;
+  background:#fffaff;
+  position:relative;
+  overflow:hidden;
+  box-shadow:
+    0 0 20px white,
+    0 0 50px #ffb6dc,
+    0 0 90px rgba(255,255,255,.4);
+  animation:moonGlow 3s infinite ease-in-out;
 }
 
-.resultText{
-  font-family:Pacifico,cursive;
+@keyframes moonGlow{
+  50%{
+    box-shadow:
+      0 0 30px white,
+      0 0 65px #ffb6dc,
+      0 0 100px rgba(255,255,255,.5);
+  }
+}
+
+.moon:after{
+  content:"";
+  position:absolute;
+  width:100px;
+  height:100px;
+  border-radius:50%;
+  background:#951751;
+  left:38px;
+  top:-12px;
+}
+
+/* TEXT */
+h1,h2{
+  font-family:cursive;
+}
+
+h1{
+  font-size:42px;
+  margin-bottom:12px;
+}
+
+h2{
+  font-size:36px;
+  margin-bottom:15px;
+}
+
+.subtitle,
+.message{
+  font-family:cursive;
   font-size:17px;
   line-height:1.6;
-  margin-bottom:28px;
+  margin-bottom:30px;
 }
 
-.back,
-.close{
-  width:130px;
-  height:55px;
-  border:0;
+/* BUTTONS */
+.btn{
+  width:100%;
+  min-height:62px;
   border-radius:50px;
-  background:#fff;
-  color:#bf286c;
-  font-size:20px;
+  margin-top:15px;
+  border:1px solid rgba(255,255,255,.65);
+  font-family:cursive;
+  font-size:22px;
+  font-weight:bold;
+  cursor:pointer;
+  transition:.25s;
 }
 
-/* mobile */
+.btn:active{
+  transform:scale(.94);
+}
+
+.primary{
+  background:white;
+  color:#bd286b;
+  border:0;
+  box-shadow:0 8px 25px rgba(60,0,35,.25);
+}
+
+.secondary{
+  color:white;
+  background:rgba(255,255,255,.08);
+}
+
+.btn:hover{
+  transform:scale(1.03);
+}
+
+/* INSTAGRAM */
+.instagram{
+  display:block;
+  margin-top:28px;
+  color:white;
+  text-decoration:none;
+  font-size:14px;
+}
+
+/* DOTS */
+.dots{
+  margin-top:18px;
+}
+
+.dot{
+  display:inline-block;
+  width:8px;
+  height:8px;
+  margin:3px;
+  border-radius:50%;
+  background:rgba(255,255,255,.4);
+}
+
+.dot.active{
+  background:white;
+  box-shadow:0 0 10px white;
+}
+
+/* GALLERY */
+.gallery{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin:20px 0;
+}
+
+.photo{
+  height:140px;
+  border-radius:20px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:42px;
+  background:
+    linear-gradient(135deg,
+      rgba(255,255,255,.28),
+      rgba(255,100,170,.2));
+  border:1px solid rgba(255,255,255,.4);
+}
+
+/* MUSIC */
+.music-circle{
+  width:115px;
+  height:115px;
+  border-radius:50%;
+  margin:20px auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,255,255,.16);
+  border:1px solid rgba(255,255,255,.55);
+  font-size:48px;
+  box-shadow:0 0 35px rgba(255,255,255,.2);
+}
+
+/* FINAL */
+.final-heart{
+  font-size:80px;
+  animation:beat 1.2s infinite;
+}
+
+@keyframes beat{
+  50%{
+    transform:scale(1.18);
+  }
+}
+
+/* MOBILE */
 @media(max-width:500px){
 
   .card{
-    padding:50px 24px 27px;
+    padding:42px 22px 26px;
   }
 
   .moon{
-    width:92px;
-    height:92px;
+    width:90px;
+    height:90px;
   }
 
   .moon:after{
-    width:92px;
-    height:92px;
-    left:33px;
-    top:-11px;
+    width:90px;
+    height:90px;
+    left:34px;
+    top:-10px;
   }
 
   h1{
     font-size:34px;
   }
 
-  .subtitle{
-    font-size:15px;
-    margin-bottom:30px;
-  }
-
-  .yes,
-  .forever{
-    height:62px;
-    font-size:21px;
-  }
-
-  .instagram{
-    margin-top:30px;
-    font-size:12px;
-  }
-
-  .resultTitle{
+  h2{
     font-size:31px;
   }
 
-  .resultText{
+  .subtitle,
+  .message{
     font-size:15px;
+  }
+
+  .btn{
+    min-height:60px;
+    font-size:21px;
+  }
+
+  .photo{
+    height:120px;
   }
 }
 </style>
@@ -382,10 +336,13 @@ button:active{
 
 <body>
 
+<div class="bg-glow"></div>
 <div id="hearts"></div>
 
-<!-- HOME -->
-<div class="page" id="home">
+
+<!-- ================= HOME ================= -->
+
+<div class="screen active" id="home">
 
   <div class="card">
 
@@ -397,21 +354,19 @@ button:active{
       Just you, me & a little midnight magic 🌙
     </div>
 
-    <div class="buttons">
+    <button class="btn primary" onclick="showScreen('result')">
+      100% 💗
+    </button>
 
-      <button class="yes" onclick="showResult()">
-        100% 💗
-      </button>
+    <button class="btn secondary" onclick="showScreen('forever')">
+      FOREVER ✨
+    </button>
 
-      <button class="forever" onclick="showForever()">
-        FOREVER ✨
-      </button>
-
-    </div>
-
-    <div class="instagram">
+    <a class="instagram"
+       href="https://www.instagram.com/mr.prashan.t.18/"
+       target="_blank">
       made with ♡ by <b>@mr.prashan.t.18</b>
-    </div>
+    </a>
 
     <div class="dots">
       <span class="dot active"></span>
@@ -424,20 +379,25 @@ button:active{
 </div>
 
 
-<!-- RESULT -->
+<!-- ================= RESULT ================= -->
+
 <div class="screen" id="result">
 
-  <div class="resultCard">
+  <div class="card">
 
-    <div class="resultTitle">
-      Found 1 Result ❤️
-    </div>
+    <h2>Found 1 Result ❤️</h2>
 
-    <div class="resultText">
+    <div class="message">
       Someone is waiting for your late night talks... 🌙💗
     </div>
 
-    <button class="back" onclick="goHome()">
+    <button class="btn primary"
+            onclick="showScreen('message')">
+      Next 💕
+    </button>
+
+    <button class="btn secondary"
+            onclick="showScreen('home')">
       Back
     </button>
 
@@ -446,21 +406,157 @@ button:active{
 </div>
 
 
-<!-- FOREVER -->
-<div class="screen" id="forever">
+<!-- ================= MESSAGE ================= -->
 
-  <div class="resultCard">
+<div class="screen" id="message">
 
-    <div class="resultTitle">
-      ∞ FOREVER ∞
+  <div class="card">
+
+    <div style="font-size:65px;">💌</div>
+
+    <h2>One Special Message</h2>
+
+    <div class="message">
+      Some conversations are special,
+      some people are special,
+      and some moments are worth remembering forever. 💗
+      <br><br>
+      Tonight is just a little midnight magic. 🌙✨
     </div>
 
-    <div class="resultText">
+    <button class="btn primary"
+            onclick="showScreen('gallery')">
+      Next 📸
+    </button>
+
+    <button class="btn secondary"
+            onclick="showScreen('result')">
+      Back
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- ================= GALLERY ================= -->
+
+<div class="screen" id="gallery">
+
+  <div class="card">
+
+    <h2>Our Little Gallery 📸</h2>
+
+    <div class="message">
+      You can replace these boxes with your own photos later. 💕
+    </div>
+
+    <div class="gallery">
+
+      <div class="photo">💗</div>
+      <div class="photo">🌙</div>
+      <div class="photo">✨</div>
+      <div class="photo">💕</div>
+
+    </div>
+
+    <button class="btn primary"
+            onclick="showScreen('music')">
+      Next 🎵
+    </button>
+
+    <button class="btn secondary"
+            onclick="showScreen('message')">
+      Back
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- ================= MUSIC ================= -->
+
+<div class="screen" id="music">
+
+  <div class="card">
+
+    <div class="music-circle" id="musicIcon">
+      🎵
+    </div>
+
+    <h2>Midnight Music 🌙</h2>
+
+    <div class="message">
+      Tap the button to play a soft little sound. ✨
+    </div>
+
+    <button class="btn primary"
+            onclick="toggleMusic()"
+            id="musicButton">
+      ▶ Play Music
+    </button>
+
+    <button class="btn primary"
+            onclick="showScreen('final')">
+      Next ✨
+    </button>
+
+    <button class="btn secondary"
+            onclick="showScreen('gallery')">
+      Back
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- ================= FOREVER ================= -->
+
+<div class="screen" id="forever">
+
+  <div class="card">
+
+    <div class="final-heart">💗</div>
+
+    <h2>∞ FOREVER ∞</h2>
+
+    <div class="message">
       Some conversations are worth staying up for. 💕
     </div>
 
-    <button class="close" onclick="goHome()">
-      Close
+    <button class="btn primary"
+            onclick="showScreen('result')">
+      Start Again 🔄
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- ================= FINAL ================= -->
+
+<div class="screen" id="final">
+
+  <div class="card">
+
+    <div class="final-heart">💖</div>
+
+    <h2>Forever & Always ✨</h2>
+
+    <div class="message">
+      The night may end,
+      but beautiful memories don't. 🌙
+      <br><br>
+      Made with ♡ by
+      <b>@mr.prashan.t.18</b>
+    </div>
+
+    <button class="btn primary"
+            onclick="showScreen('home')">
+      Back to Start 💕
     </button>
 
   </div>
@@ -470,97 +566,163 @@ button:active{
 
 <script>
 
-/* =========================
-   FLOATING HEARTS
-========================= */
+/* ================= SCREEN SYSTEM ================= */
 
-const container = document.getElementById("hearts");
+function showScreen(id){
 
-const heartSymbols = [
-  "♡","♥","❤","💕","💗","💖","💞"
+  const screens =
+    document.querySelectorAll(".screen");
+
+  screens.forEach(function(screen){
+    screen.classList.remove("active");
+  });
+
+  document.getElementById(id)
+    .classList.add("active");
+}
+
+
+/* ================= FLOATING HEARTS ================= */
+
+const hearts =
+  document.getElementById("hearts");
+
+const symbols = [
+  "♡","♥","💕","💗","💖","💞"
 ];
 
 function createHeart(){
 
-  const heart = document.createElement("div");
+  const heart =
+    document.createElement("div");
 
   heart.className = "heart";
 
-  heart.textContent =
-    heartSymbols[
-      Math.floor(Math.random()*heartSymbols.length)
+  heart.innerText =
+    symbols[
+      Math.floor(Math.random()*symbols.length)
     ];
 
   heart.style.left =
     Math.random()*100 + "vw";
 
   heart.style.fontSize =
-    (12 + Math.random()*28) + "px";
+    (14 + Math.random()*25) + "px";
 
   const duration =
-    7 + Math.random()*8;
+    6 + Math.random()*7;
 
   heart.style.animationDuration =
     duration + "s";
 
-  container.appendChild(heart);
+  hearts.appendChild(heart);
 
-  setTimeout(()=>{
+  setTimeout(function(){
     heart.remove();
   },duration*1000);
 }
 
-/* start hearts */
-for(let i=0;i<30;i++){
-  setTimeout(createHeart,i*150);
-}
+for(let i=0;i<25;i++){
 
-setInterval(createHeart,450);
-
-
-/* =========================
-   BUTTON ACTIONS
-========================= */
-
-function showResult(){
-
-  document.getElementById("result")
-    .classList.add("show");
+  setTimeout(
+    createHeart,
+    i*250
+  );
 
 }
 
-function showForever(){
+setInterval(
+  createHeart,
+  500
+);
 
-  document.getElementById("forever")
-    .classList.add("show");
 
+/* ================= SIMPLE MUSIC ================= */
+
+let audioContext = null;
+let musicPlaying = false;
+let musicTimer = null;
+
+function playTone(){
+
+  if(!audioContext){
+    audioContext =
+      new (window.AudioContext ||
+      window.webkitAudioContext)();
+  }
+
+  const osc =
+    audioContext.createOscillator();
+
+  const gain =
+    audioContext.createGain();
+
+  osc.type = "sine";
+
+  osc.frequency.value =
+    392;
+
+  gain.gain.setValueAtTime(
+    0.0001,
+    audioContext.currentTime
+  );
+
+  gain.gain.exponentialRampToValueAtTime(
+    0.06,
+    audioContext.currentTime + 0.05
+  );
+
+  gain.gain.exponentialRampToValueAtTime(
+    0.0001,
+    audioContext.currentTime + 1.4
+  );
+
+  osc.connect(gain);
+  gain.connect(audioContext.destination);
+
+  osc.start();
+
+  osc.stop(
+    audioContext.currentTime + 1.5
+  );
 }
 
-function goHome(){
+function toggleMusic(){
 
-  document.getElementById("result")
-    .classList.remove("show");
+  const button =
+    document.getElementById("musicButton");
 
-  document.getElementById("forever")
-    .classList.remove("show");
+  const icon =
+    document.getElementById("musicIcon");
 
+  if(!musicPlaying){
+
+    musicPlaying = true;
+
+    button.innerText =
+      "⏸ Pause Music";
+
+    icon.innerText = "🎶";
+
+    playTone();
+
+    musicTimer =
+      setInterval(playTone,1800);
+
+  }else{
+
+    musicPlaying = false;
+
+    button.innerText =
+      "▶ Play Music";
+
+    icon.innerText = "🎵";
+
+    clearInterval(musicTimer);
+  }
 }
-
-
-/* close popup when clicking outside */
-document.querySelectorAll(".screen").forEach(screen=>{
-
-  screen.addEventListener("click",function(e){
-
-    if(e.target === screen){
-      goHome();
-    }
-
-  });
-
-});
 
 </script>
 
 </body>
-</html
+  </html>
