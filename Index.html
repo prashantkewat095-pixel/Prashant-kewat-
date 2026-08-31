@@ -1,1 +1,204 @@
-content://com.android.providers.downloads.documents/document/2024
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌸 Motivation Seekh</title>
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:linear-gradient(135deg,#fff0f7,#fff9e8);
+  color:#42263b;
+}
+
+.container{
+  width:100%;
+  max-width:700px;
+  margin:auto;
+  padding:15px;
+}
+
+.card{
+  background:white;
+  border:1px solid #ead3df;
+  border-radius:24px;
+  padding:22px;
+  margin:16px 0;
+  box-shadow:0 8px 25px rgba(80,30,60,.10);
+}
+
+.logo{
+  text-align:center;
+  font-size:32px;
+  font-weight:bold;
+  margin-bottom:8px;
+}
+
+.subtitle{
+  text-align:center;
+  color:#806574;
+  font-size:16px;
+}
+
+.today{
+  text-align:center;
+  color:#b33c72;
+  font-weight:bold;
+  margin-bottom:15px;
+}
+
+.seekh{
+  background:#fff1f7;
+  border-radius:18px;
+  padding:25px 15px;
+  text-align:center;
+  font-size:25px;
+  font-weight:bold;
+  line-height:1.5;
+  min-height:110px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.action{
+  background:#fff8e8;
+  padding:14px;
+  border-radius:14px;
+  margin-top:14px;
+  text-align:center;
+  line-height:1.5;
+}
+
+.buttons{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  margin-top:15px;
+}
+
+button{
+  border:none;
+  border-radius:14px;
+  padding:13px 18px;
+  margin:5px;
+  background:#cf5797;
+  color:white;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+button:active{
+  transform:scale(.96);
+}
+
+h2{
+  margin-top:5px;
+}
+
+.quiz-question{
+  font-size:20px;
+  font-weight:bold;
+  line-height:1.5;
+  margin:15px 0;
+}
+
+.option{
+  width:100%;
+  text-align:left;
+  background:#f3d8e6;
+  color:#42263b;
+}
+
+.correct{
+  background:#2e9b58 !important;
+  color:white !important;
+}
+
+.wrong{
+  background:#d94a59 !important;
+  color:white !important;
+}
+
+.feedback{
+  min-height:28px;
+  font-weight:bold;
+  margin-top:10px;
+}
+
+.counter{
+  text-align:center;
+}
+
+.counter-title{
+  font-size:19px;
+  font-weight:bold;
+}
+
+.count{
+  font-size:55px;
+  font-weight:bold;
+  color:#b52d70;
+  margin:5px;
+}
+
+.small{
+  color:#806574;
+  font-size:14px;
+}
+
+.all-list{
+  display:none;
+  max-height:400px;
+  overflow:auto;
+  margin-top:15px;
+}
+
+.all-list p{
+  padding:10px;
+  margin:0;
+  border-bottom:1px solid #eee;
+  line-height:1.5;
+}
+
+.footer{
+  text-align:center;
+  color:#806574;
+  padding:15px;
+  font-size:14px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="card">
+    <div class="logo">🌸 Motivation Seekh</div>
+    <div class="subtitle">
+      हर दिन नई Motivation • 10,000+ सीख
+    </div>
+  </div>
+
+  <!-- MOTIVATION -->
+  <div class="card">
+
+    <div class="today" id="today">
+      📅 आज की सीख
+    </div>
+
+    <div class="seekh" id="seekh">
+      अपनी दिनचर्या पर ध्यान दो।
+    </div>
+
+    <div class="action" id="action">
+      आज की छोटी कोशिश: एक जरूरी काम समय पर
