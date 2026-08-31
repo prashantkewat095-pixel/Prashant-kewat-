@@ -1,724 +1,348 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🌸 Motivation Seekh</title>
+<title>Late Night Talks?</title>
 
 <style>
-*{
-  box-sizing:border-box;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:linear-gradient(135deg,#fff0f7,#fff9e8);
-  color:#42263b;
+body {
+    min-height: 100vh;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background:
+        radial-gradient(circle at 50% 40%, #ff4f91 0%, #c91862 35%, #650d3e 70%, #24051e 100%);
 }
 
-.container{
-  width:100%;
-  max-width:700px;
-  margin:auto;
-  padding:15px;
+/* Glow */
+body::before {
+    content: "";
+    position: fixed;
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    background: rgba(255, 105, 180, 0.35);
+    filter: blur(80px);
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
-.card{
-  background:white;
-  border:1px solid #ead3df;
-  border-radius:24px;
-  padding:22px;
-  margin:16px 0;
-  box-shadow:0 8px 25px rgba(80,30,60,.10);
+/* Floating hearts */
+.hearts {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
 }
 
-.logo{
-  text-align:center;
-  font-size:32px;
-  font-weight:bold;
-  margin-bottom:8px;
+.heart {
+    position: absolute;
+    bottom: -60px;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 22px;
+    animation: floatUp linear infinite;
+    filter: drop-shadow(0 0 8px rgba(255,255,255,.5));
 }
 
-.subtitle{
-  text-align:center;
-  color:#806574;
-  font-size:16px;
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) rotate(0deg) scale(.8);
+        opacity: 0;
+    }
+    15% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-115vh) rotate(360deg) scale(1.4);
+        opacity: 0;
+    }
 }
 
-.today{
-  text-align:center;
-  color:#b33c72;
-  font-weight:bold;
-  margin-bottom:15px;
+/* Main card */
+.card {
+    position: relative;
+    z-index: 5;
+    width: min(88%, 390px);
+    padding: 42px 25px 32px;
+    text-align: center;
+    border-radius: 28px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255,255,255,.3);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.35),
+        inset 0 1px 1px rgba(255,255,255,.25);
 }
 
-.seekh{
-  background:#fff1f7;
-  border-radius:18px;
-  padding:25px 15px;
-  text-align:center;
-  font-size:25px;
-  font-weight:bold;
-  line-height:1.5;
-  min-height:110px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+/* Moon */
+.moon {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 22px;
+    border-radius: 50%;
+    background: #fff4fb;
+    box-shadow:
+        0 0 20px #fff,
+        0 0 45px rgba(255,255,255,.7);
+    position: relative;
+    overflow: hidden;
 }
 
-.action{
-  background:#fff8e8;
-  padding:14px;
-  border-radius:14px;
-  margin-top:14px;
-  text-align:center;
-  line-height:1.5;
+.moon::after {
+    content: "";
+    position: absolute;
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    background: #8e1c58;
+    top: -12px;
+    left: 25px;
 }
 
-.buttons{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  margin-top:15px;
+/* Text */
+h1 {
+    color: white;
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    text-shadow: 0 2px 15px rgba(0,0,0,.3);
+    margin-bottom: 10px;
 }
 
-button{
-  border:none;
-  border-radius:14px;
-  padding:13px 18px;
-  margin:5px;
-  background:#cf5797;
-  color:white;
-  font-size:16px;
-  font-weight:bold;
-  cursor:pointer;
+.subtitle {
+    color: rgba(255,255,255,.9);
+    font-size: 15px;
+    margin-bottom: 28px;
 }
 
-button:active{
-  transform:scale(.96);
+/* Buttons */
+.buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
 }
 
-h2{
-  margin-top:5px;
+button {
+    width: 100%;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 50px;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .25s ease;
+    font-family: inherit;
 }
 
-.quiz-question{
-  font-size:20px;
-  font-weight:bold;
-  line-height:1.5;
-  margin:15px 0;
+.yes {
+    background: white;
+    color: #d51d6b;
+    box-shadow: 0 8px 25px rgba(0,0,0,.2);
 }
 
-.option{
-  width:100%;
-  text-align:left;
-  background:#f3d8e6;
-  color:#42263b;
+.forever {
+    background: rgba(255,255,255,.15);
+    color: white;
+    border: 1px solid rgba(255,255,255,.5);
 }
 
-.correct{
-  background:#2e9b58 !important;
-  color:white !important;
+button:hover {
+    transform: scale(1.04);
 }
 
-.wrong{
-  background:#d94a59 !important;
-  color:white !important;
+button:active {
+    transform: scale(.96);
 }
 
-.feedback{
-  min-height:28px;
-  font-weight:bold;
-  margin-top:10px;
+/* Instagram */
+.instagram {
+    margin-top: 25px;
+    color: rgba(255,255,255,.8);
+    font-size: 13px;
 }
 
-.counter{
-  text-align:center;
+.instagram span {
+    color: white;
+    font-weight: bold;
 }
 
-.counter-title{
-  font-size:19px;
-  font-weight:bold;
+/* Popup */
+.message {
+    position: fixed;
+    z-index: 20;
+    inset: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background: rgba(20,0,15,.55);
+    backdrop-filter: blur(8px);
 }
 
-.count{
-  font-size:55px;
-  font-weight:bold;
-  color:#b52d70;
-  margin:5px;
+.message-box {
+    width: min(85%, 350px);
+    padding: 35px 25px;
+    text-align: center;
+    border-radius: 25px;
+    background: rgba(255,255,255,.16);
+    border: 1px solid rgba(255,255,255,.4);
+    color: white;
+    box-shadow: 0 20px 60px rgba(0,0,0,.4);
 }
 
-.small{
-  color:#806574;
-  font-size:14px;
+.message-box h2 {
+    margin-bottom: 12px;
+    font-size: 28px;
 }
 
-.all-list{
-  display:none;
-  max-height:400px;
-  overflow:auto;
-  margin-top:15px;
+.message-box p {
+    line-height: 1.5;
+    margin-bottom: 22px;
 }
 
-.all-list p{
-  padding:10px;
-  margin:0;
-  border-bottom:1px solid #eee;
-  line-height:1.5;
+.close {
+    width: auto;
+    padding: 11px 28px;
+    background: white;
+    color: #d51d6b;
 }
 
-.footer{
-  text-align:center;
-  color:#806574;
-  padding:15px;
-  font-size:14px;
+/* Mobile */
+@media (max-width: 400px) {
+    h1 {
+        font-size: 28px;
+    }
+
+    .card {
+        padding: 35px 20px 28px;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<!-- Floating hearts -->
+<div class="hearts" id="hearts"></div>
 
-  <!-- HEADER -->
-  <div class="card">
-    <div class="logo">🌸 Motivation Seekh</div>
+<!-- Main card -->
+<div class="card">
+
+    <div class="moon"></div>
+
+    <h1>Late Night Talks?</h1>
+
     <div class="subtitle">
-      हर दिन नई Motivation • 10,000+ सीख
-    </div>
-  </div>
-
-  <!-- MOTIVATION -->
-  <div class="card">
-
-    <div class="today" id="today">
-      📅 आज की सीख
-    </div>
-
-    <div class="seekh" id="seekh">
-      अपनी दिनचर्या पर ध्यान दो।
-    </div>
-
-    <div class="action" id="action">
-      आज की छोटी कोशिश: एक जरूरी काम समय पर पूरा करो।
+        Just you, me & a little midnight magic 🌙
     </div>
 
     <div class="buttons">
-      <button onclick="previousSeekh()">⬅️ पिछली</button>
-      <button onclick="nextSeekh()">अगली ➡️</button>
-      <button onclick="randomSeekh()">🎲 Random</button>
+        <button class="yes" onclick="showMessage('yes')">
+            100% 💗
+        </button>
+
+        <button class="forever" onclick="showMessage('forever')">
+            FOREVER ✨
+        </button>
     </div>
 
-  </div>
-
-  <!-- QUIZ -->
-  <div class="card">
-
-    <h2>🧠 आज का Quiz</h2>
-
-    <div class="quiz-question" id="question">
-      Quiz loading...
+    <div class="instagram">
+        made with ♡ by <span>@yourusername</span>
     </div>
-
-    <div id="options"></div>
-
-    <div class="feedback" id="feedback"></div>
-
-  </div>
-
-  <!-- RADHA COUNTER -->
-  <div class="card counter">
-
-    <div class="counter-title">
-      🌷 Radha Counter
-    </div>
-
-    <div class="count" id="count">
-      0
-    </div>
-
-    <div class="small">
-      जितनी बार चाहो Radha नाम जोड़ सकते हो
-    </div>
-
-    <button onclick="addRadha()">
-      🙏 Radha नाम जोड़ें
-    </button>
-
-    <br>
-
-    <button onclick="resetRadha()">
-      🔄 Counter Reset
-    </button>
-
-  </div>
-
-  <!-- ALL MOTIVATION -->
-  <div class="card">
-
-    <div class="buttons">
-      <button onclick="showAll()">
-        📚 सभी Motivation देखें
-      </button>
-    </div>
-
-    <div class="all-list" id="allList"></div>
-
-  </div>
-
-  <div class="footer">
-    🌸 Motivation Seekh • रोज थोड़ा बेहतर बनो
-  </div>
 
 </div>
 
+<!-- Popup -->
+<div class="message" id="message">
+
+    <div class="message-box">
+
+        <h2 id="messageTitle">💗</h2>
+
+        <p id="messageText"></p>
+
+        <button class="close" onclick="closeMessage()">
+            Close
+        </button>
+
+    </div>
+
+</div>
 
 <script>
 
-/* =====================================================
-   MOTIVATION DATA
-   ===================================================== */
+/* Create floating hearts */
+const hearts = document.getElementById("hearts");
 
-const subjects = [
-  "अपनी दिनचर्या",
-  "अपने लक्ष्य",
-  "अपनी पढ़ाई",
-  "अपनी मेहनत",
-  "अपने समय",
-  "अपने भविष्य",
-  "अपने सपनों",
-  "अपने अनुशासन",
-  "अपनी सोच",
-  "अपनी आदतों",
-  "अपनी जिम्मेदारियों",
-  "अपनी कोशिश",
-  "अपने आत्मविश्वास",
-  "अपने ज्ञान",
-  "अपने काम"
-];
+const heartSymbols = ["♥", "♡", "❤", "💕", "💗"];
 
-const actions = [
-  "आज एक जरूरी काम पूरा करो।",
-  "आज कम से कम 20 मिनट पढ़ाई करो।",
-  "आज अपना समय बेकार मत जाने दो।",
-  "आज अपने लक्ष्य के लिए एक कदम बढ़ाओ।",
-  "आज कोई एक अच्छी आदत शुरू करो।",
-  "आज अपना फोन कम इस्तेमाल करो।",
-  "आज कल से थोड़ा बेहतर बनने की कोशिश करो।",
-  "आज जो काम टाल रहे हो उसे शुरू करो।",
-  "आज अपने लिए एक छोटा लक्ष्य बनाओ।",
-  "आज कुछ नया सीखो।"
-];
+for (let i = 0; i < 35; i++) {
 
-const endings = [
-  "पर ध्यान दो।",
-  "को मजबूत बनाओ।",
-  "को सही दिशा दो।",
-  "के लिए मेहनत करो।",
-  "को समय दो।",
-  "को बेहतर बनाओ।",
-  "पर भरोसा रखो।",
-  "से समझौता मत करो।",
-  "को अपनी ताकत बनाओ।",
-  "के लिए आज से शुरुआत करो।"
-];
+    const heart = document.createElement("div");
 
+    heart.className = "heart";
 
-/*
-  10,000+ सीखें automatically बनाई जाती हैं।
-  हर लाइन अलग combination से बनती है।
-*/
+    heart.innerHTML =
+        heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
 
-let lessons = [];
+    heart.style.left = Math.random() * 100 + "%";
 
-for(let i=0;i<10000;i++){
+    heart.style.fontSize =
+        (12 + Math.random() * 25) + "px";
 
-  let subject = subjects[i % subjects.length];
-  let ending = endings[Math.floor(i / subjects.length) % endings.length];
+    heart.style.animationDuration =
+        (6 + Math.random() * 8) + "s";
 
-  let number = i + 1;
+    heart.style.animationDelay =
+        (Math.random() * 8) + "s";
 
-  lessons.push(
-    subject + " " + ending
-  );
+    hearts.appendChild(heart);
 }
 
 
-/* Extra अच्छी सीखें */
+/* Button messages */
+function showMessage(type) {
 
-const specialLessons = [
+    const popup = document.getElementById("message");
+    const title = document.getElementById("messageTitle");
+    const text = document.getElementById("messageText");
 
-"अपनी दिनचर्या पर ध्यान दो।",
-"अच्छी मेहनत करो।",
-"अपनी लड़ाई खुद लड़ो।",
-"एक दिन सब बदलेगा।",
-"अपने लक्ष्य पर ध्यान दो।",
-"कुछ भी हो जाए, हार मत मानो।",
-"आज से शुरुआत करो।",
-"समय की कदर करो।",
-"हर दिन थोड़ा बेहतर बनो।",
-"अपने सपनों पर विश्वास रखो।",
-"मुश्किलों से घबराओ मत।",
-"लगातार आगे बढ़ते रहो।",
-"अपनी गलतियों से सीखो।",
-"अपने ऊपर भरोसा रखो।",
-"काम को टालना बंद करो।",
-"पढ़ाई को प्राथमिकता दो।",
-"मेहनत को अपनी आदत बनाओ।",
-"अनुशासन बनाए रखो।",
-"छोटे कदम उठाते रहो।",
-"अपना ध्यान भटकने मत दो।",
-"आज का काम आज करो।",
-"अच्छी संगत चुनो।",
-"धैर्य रखो।",
-"हर दिन कुछ नया सीखो।",
-"अभ्यास करते रहो।",
-"असफलता से सीखो।",
-"दूसरों से तुलना मत करो।",
-"खुद से बेहतर बनने की कोशिश करो।",
-"अपना लक्ष्य लिखो।",
-"अपनी प्रगति देखो।",
-"मुश्किल काम से भागो मत।",
-"अपने डर का सामना करो।",
-"नई शुरुआत से मत डरो।",
-"जरूरत हो तो मदद माँगो।",
-"दूसरों का सम्मान करो।",
-"ईमानदार रहो।",
-"किसी की मदद करो।",
-"अपने समय की योजना बनाओ।",
-"बहाने कम करो।",
-"कोशिश ज्यादा करो।",
-"निरंतरता बनाए रखो।",
-"अपनी प्राथमिकताएँ तय करो।",
-"ध्यान लगाकर काम करो।",
-"सीखने की इच्छा बनाए रखो।",
-"चुनौती को अवसर समझो।",
-"एक और प्रयास करो।",
-"अपनी यात्रा पर भरोसा रखो।",
-"रोज थोड़ा पढ़ो।",
-"सवाल पूछने से मत डरो।",
-"अपने फैसलों की जिम्मेदारी लो।",
-"क्रोध में फैसला मत लो।",
-"दूसरों की सफलता से प्रेरणा लो।",
-"अपनी ऊर्जा सही जगह लगाओ।",
-"जरूरी काम पहले करो।",
-"छोटी जीत का सम्मान करो।",
-"सही समय का इंतजार मत करो।",
-"अपने सपनों को योजना दो।",
-"योजना को काम में बदलो।",
-"आज एक अच्छा काम करो।",
-"अपने भविष्य के लिए आज काम करो।"
+    if (type === "yes") {
 
-];
+        title.innerHTML = "💗 Yayyy!";
 
+        text.innerHTML =
+            "Then let's make tonight a little more special ✨🌙";
 
-/* Special lessons को शुरुआत में डालना */
+    } else {
 
-lessons = specialLessons.concat(lessons);
+        title.innerHTML = "∞ FOREVER ∞";
 
+        text.innerHTML =
+            "Some conversations are worth staying up for. 💕";
 
-/* =====================================================
-   DAILY MOTIVATION
-   ===================================================== */
+    }
 
-function getDayNumber(){
-
-  const now = new Date();
-
-  const start = new Date(
-    now.getFullYear(),
-    now.getMonth(),
-    now.getDate()
-  );
-
-  return Math.floor(start.getTime()/86400000);
-
+    popup.style.display = "flex";
 }
 
 
-let currentIndex =
-  getDayNumber() % lessons.length;
+/* Close popup */
+function closeMessage() {
 
-
-function showSeekh(){
-
-  const text = lessons[currentIndex];
-
-  document.getElementById("today").textContent =
-    "📅 आज की सीख • " +
-    (currentIndex + 1) +
-    " / " +
-    lessons.length;
-
-  document.getElementById("seekh").textContent =
-    text;
-
-  document.getElementById("action").textContent =
-    "🌱 आज की छोटी कोशिश: " +
-    actions[currentIndex % actions.length];
+    document.getElementById("message").style.display = "none";
 
 }
-
-
-function nextSeekh(){
-
-  currentIndex++;
-
-  if(currentIndex >= lessons.length){
-    currentIndex = 0;
-  }
-
-  showSeekh();
-
-}
-
-
-function previousSeekh(){
-
-  currentIndex--;
-
-  if(currentIndex < 0){
-    currentIndex = lessons.length - 1;
-  }
-
-  showSeekh();
-
-}
-
-
-function randomSeekh(){
-
-  currentIndex =
-    Math.floor(Math.random() * lessons.length);
-
-  showSeekh();
-
-}
-
-
-/* =====================================================
-   QUIZ
-   ===================================================== */
-
-const quizzes = [
-
-{
- question:"भारत की राजधानी क्या है?",
- options:["मुंबई","नई दिल्ली","जयपुर"],
- answer:1
-},
-
-{
- question:"सूर्य किस दिशा से उगता है?",
- options:["पश्चिम","पूर्व","उत्तर"],
- answer:1
-},
-
-{
- question:"एक सप्ताह में कितने दिन होते हैं?",
- options:["5","7","10"],
- answer:1
-},
-
-{
- question:"पानी का रासायनिक सूत्र क्या है?",
- options:["CO2","H2O","O2"],
- answer:1
-},
-
-{
- question:"पृथ्वी का प्राकृतिक उपग्रह कौन है?",
- options:["चंद्रमा","सूर्य","मंगल"],
- answer:0
-},
-
-{
- question:"भारत का राष्ट्रीय पशु कौन है?",
- options:["हाथी","बाघ","शेर"],
- answer:1
-},
-
-{
- question:"एक वर्ष में कितने महीने होते हैं?",
- options:["10","11","12"],
- answer:2
-},
-
-{
- question:"इंद्रधनुष में कितने रंग होते हैं?",
- options:["5","7","9"],
- answer:1
-},
-
-{
- question:"भारत का राष्ट्रीय पक्षी कौन है?",
- options:["मोर","तोता","कबूतर"],
- answer:0
-},
-
-{
- question:"पौधे प्रकाश संश्लेषण में किस गैस का उपयोग करते हैं?",
- options:["ऑक्सीजन","कार्बन डाइऑक्साइड","नाइट्रोजन"],
- answer:1
-}
-
-];
-
-
-function showQuiz(){
-
-  const quiz =
-    quizzes[getDayNumber() % quizzes.length];
-
-  document.getElementById("question").textContent =
-    quiz.question;
-
-  const optionsBox =
-    document.getElementById("options");
-
-  optionsBox.innerHTML="";
-
-  document.getElementById("feedback").textContent="";
-
-  quiz.options.forEach((option,index)=>{
-
-    const button =
-      document.createElement("button");
-
-    button.className="option";
-
-    button.textContent=option;
-
-    button.onclick=function(){
-
-      const allButtons =
-        optionsBox.querySelectorAll("button");
-
-      allButtons.forEach(btn=>{
-        btn.disabled=true;
-      });
-
-      if(index === quiz.answer){
-
-        button.classList.add("correct");
-
-        document.getElementById("feedback").textContent =
-          "✅ बिल्कुल सही जवाब!";
-
-      }else{
-
-        button.classList.add("wrong");
-
-        allButtons[quiz.answer].classList.add("correct");
-
-        document.getElementById("feedback").textContent =
-          "❌ गलत जवाब। सही उत्तर हरे रंग में है।";
-
-      }
-
-    };
-
-    optionsBox.appendChild(button);
-
-  });
-
-}
-
-
-/* =====================================================
-   RADHA COUNTER
-   ===================================================== */
-
-let radhaCount =
-  Number(localStorage.getItem("radhaCount") || 0);
-
-
-function updateCounter(){
-
-  document.getElementById("count").textContent =
-    radhaCount;
-
-}
-
-
-function addRadha(){
-
-  radhaCount++;
-
-  localStorage.setItem(
-    "radhaCount",
-    radhaCount
-  );
-
-  updateCounter();
-
-}
-
-
-function resetRadha(){
-
-  if(confirm("क्या आप Radha Counter को 0 करना चाहते हैं?")){
-
-    radhaCount=0;
-
-    localStorage.setItem(
-      "radhaCount",
-      0
-    );
-
-    updateCounter();
-
-  }
-
-}
-
-
-/* =====================================================
-   ALL MOTIVATION
-   ===================================================== */
-
-function showAll(){
-
-  const box =
-    document.getElementById("allList");
-
-  if(box.style.display === "block"){
-
-    box.style.display="none";
-
-    return;
-
-  }
-
-  box.style.display="block";
-
-  box.innerHTML="";
-
-  lessons.forEach((lesson,index)=>{
-
-    const p =
-      document.createElement("p");
-
-    p.innerHTML =
-      "<b>"+(index+1)+".</b> "+lesson;
-
-    box.appendChild(p);
-
-  });
-
-}
-
-
-/* =====================================================
-   START
-   ===================================================== */
-
-showSeekh();
-
-showQuiz();
-
-updateCounter();
 
 </script>
 
